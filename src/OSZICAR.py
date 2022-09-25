@@ -104,6 +104,10 @@ class OSZICAR(object):
 				try:	electronic_step[-1].append( list(filter(lambda x: self.isnum(x), vec )) )
 				except: print('ERROR :: OSZICAR.load() :: error while READING OSZICAR' )
 
+		# close the file 
+		try: 		f.close()
+		except: 	print('ERROR :: OSZICAR.load() :: can NOT close file {}'.format(file_name) ); 	return
+
 		if save:
 			self.N = N
 			self.E = E

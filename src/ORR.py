@@ -5,7 +5,6 @@
 import warnings
 warnings.filterwarnings("ignore")
 
-
 try:
 	from os import path
 	import itertools, operator, logging, time, copy, pickle, os.path
@@ -42,6 +41,12 @@ try:	from src import OSZICAR
 except:	
 	try: import OSZICAR as OSZICAR
 	except: print('WARNING :: Set.import_libraries() :: can not import OSZICAR ')
+
+try:	from src import Logs
+except:	
+	try: import Logs as Logs
+	except: print('WARNING :: Set.import_libraries() :: can not import ORR ')
+
 
 from scipy.signal import savgol_filter
 
@@ -110,6 +115,7 @@ class OxigenReaction(object):
 			'#000000', #	Black 				#000000 	(0,0,0)
 			]
 
+	@Logs.LogDecorator()
 	def calculate(self,	sys=None, sys_O=None, sys_OH=None, sys_OOH=None, sys_O2=None, 
 						H2O=None, H2=None, T=298, Gb=0, thermodimanic_corrections=True, v=False):
 		# (Lee) 	S= {'sys':0, 'O':0.05, 'OH':0.07, 'OOH':0.16, 'O2':0.00, 'H2':0.41, 'H2O':0.67}
@@ -141,6 +147,7 @@ class OxigenReaction(object):
 
 		return self.result 
 
+	@Logs.LogDecorator()
 	def reation(self, E={'*':0, '*O':0, '*OH':0, '*OOH':0, 'H2':0, 'H2O':0, '*O2':0}, T=298, 
 				v=False, save=True, thermodimanic_corrections=True, Gb=1.6, table=True):
 		if T == None: T = 298
@@ -396,14 +403,15 @@ class OxigenReaction(object):
 					}
 
 		return self.ORR
-	
+
+	@Logs.LogDecorator()
 	def G_U(self, 	U, G1=None, G2=None, G3=None, G4=None, save=True):
 		# This function evaluates the free energy change dependency to the aplied bias. (U_app)
 		G1 = G1 if type(G1) != type(None) else self.ORR['G1_ORR']
 		G2 = G2 if type(G2) != type(None) else self.ORR['G2_ORR']
 		G3 = G3 if type(G3) != type(None) else self.ORR['G3_ORR']
 		G4 = G4 if type(G4) != type(None) else self.ORR['G4_ORR']
-		U  = U if type(U) != type(None) else self.U
+		U  = U  if type(U)  != type(None) else self.U
 		if type(U) == type(None): print('ERROR :: ORR.G_U() :: The applied potential must be defined.')
 	
 		G1 = U + G1
@@ -422,6 +430,7 @@ class OxigenReaction(object):
 
 		return np.array([G1, G2, G3, G4])
 
+	@Logs.LogDecorator()
 	def G2K(self, G=None, k0=0.002, kmax=np.inf, norm=False, save=True):
 
 		if type(G) != type(None): 
@@ -476,22 +485,26 @@ class OxigenReaction(object):
 
 		ax.legend(handles2, labels2)
 
-	def plot(self, data=None, folder='.', name='no_name', dpi=40):
+	@Logs.LogDecorator()
+	def plot(self, data=None, ax=None, folder='.', name='', dpi=40, save=False, v=False):
 		data =  data if type(data) != type(None) else self.ORR['4e_ORR'].T if type(self.ORR)==dict else None
 
 		if type(data) != type(None):
 			self.plot_reactioncoordinate(
-						data= data, steps_names=[r'$O_2$', r'$OOH_{ads}$', r'$O_{ads}$', r'$OH_{ads}$', r'$OH^-$'], color=self.color,
+						data= data, steps_names=[r'$O_2$', r'$OOH_{ads}$', r'$O_{ads}$', r'$OH_{ads}$', r'$OH^-$'], color=self.color, ax=ax,
 						label={'title':name, 'xlabel':'reaction coordenate', 'ylabel':r'$ \Delta G(eV)$'}, 
 						system_name=[name], verticallines={'show':False, 'linestyle':'-'}, 
-						plot_limits={'None':None, 'Y':[-2.0, 0.5]}, step_dimentions=[2,0], save={'folder':folder, 'name': name, 'dpi':dpi})
+						plot_limits={'None':None, 'Y':[-2.0, 0.5]}, step_dimentions=[2,0], save=save)
 
+	@Logs.LogDecorator()
 	def plot_reactioncoordinate(self,	
-					data, steps_names, color, figure={'fig_n':0}, label={'None':None}, system_name=None, plot_limits={'None':None}, 
-					ticks={'yticks':[-2.5,-2.0,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,2.0,2.5], 'font_size':18}, 
-					step_dimentions=[1,0], text={'show':True, 'font_size':30}, delta={'show': False, 'font_size':30},
-					OP_plot={'show':True, 'font_size':30}, save={'folder':'.'},
+					data, steps_names, color, ax=None, label={'None':None}, system_name=None, plot_limits={'None':None}, 
+					ticks={'yticks':[-2.5,-2.0,-1.5,-1.0,-0.5,0.0,0.5,1.0,1.5,2.0,2.5], 'font_size':12}, 
+					step_dimentions=[1,0], text={'show':True, 'font_size':15}, delta={'show': False, 'font_size':30},
+					OP_plot={'show':True, 'font_size':15}, save={'folder':'.'},
 					verticallines={'show':True, 'linestyle':'--'}):
+
+		plot_limits = {'None':None} if type(plot_limits) is None else plot_limits
 
 		# ---- select TITLE ---- # 
 		if not 'title' in label: label['title'] = 'Title'
@@ -503,63 +516,60 @@ class OxigenReaction(object):
 			except: print('ERROR :: code 0?? :: data plot need DATA as argument ')
 
 		# ---- Figure configuration ---- # 
-		if 'fig_n' in figure:
-			figure_number = figure['fig_n']
-		else: 
-			figure_number = 0
-		fig, ax = plt.subplots(1, figsize=(20.0, 20.0), dpi=save['dpi'])
+		if ax==None:	fig, ax = plt.subplots(figsize=(10, 10), dpi=80)
+		else:			fig = ax.get_figure()
 
 		# ---- reference lvl ---- # 
-		ax.spines['left'].set_linewidth(3); ax.spines['right'].set_linewidth(3);	ax.spines['top'].set_linewidth(3);	ax.spines['bottom'].set_linewidth(3)
+		ax.spines['left'].set_linewidth(2); ax.spines['right'].set_linewidth(2);	ax.spines['top'].set_linewidth(2);	ax.spines['bottom'].set_linewidth(2)
 
 		# ---- some global parameters ---- # 
-		step_width, step_sparce = step_dimentions
+		step_width, step_sparce = 1, 0
 		step_com = step_width + step_sparce
 		
 		# ---- PLOT limits ---- # 
-		MIN, MAX = np.min(data), np.max(data) 
-		DELTA = MAX - MIN
+		Ymin, Ymax = np.min(data), np.max(data) 
+		Yvar = Ymax- Ymin 
 
 		if 'X' in plot_limits:
-			plt.xlim(plot_limits['X'])
+			ax.set_xlim(plot_limits['X'])
 		else: 
-			plt.xlim((0, data.shape[0]*(step_com) ))
+			ax.set_xlim((0, data.shape[0]*(step_com) ))
 
 		if 'Y' in plot_limits:
 			ylim = [plot_limits['Y'][0], plot_limits['Y'][1]]
-			plt.ylim(ylim)
+			ax.set_ylim(ylim)
 		else:
 			ylim = [MIN-1.5*DELTA, MAX+1.5*DELTA]
-			plt.ylim(ylim)
+			ax.set_ylim(ylim)
 
-		# ---- reference lvl ---- # 
-		plt.plot([-1, data.shape[0]*(step_com)+step_width], [0,0], '--', lw = 4, color='#AAAAAA')
+		# ---- reference lvl (0)---- # 
+		ax.plot([-1, data.shape[0]*(step_com)+step_width], [0,0], '--', lw = 4, color='#AAAAAA')
 
 		# ---- Y-TICKS ---- # 
 		if 'yticks' in ticks:
-			plt.yticks(ticks['yticks'] , ticks['yticks'] , fontsize='small', fontstyle='normal', fontfamily='serif')
+			ax.yaxis.set_ticks(ticks['yticks'] , ticks['yticks'] , fontsize='small', fontstyle='normal', fontfamily='serif')
 			for tick in ax.yaxis.get_major_ticks(): # Plot de los indices de la escala en el eje X
-				tick.label1.set_fontsize(25); 	tick.label1.set_fontweight('normal')
+				tick.label1.set_fontsize(15); 	tick.label1.set_fontweight('normal')
 
 		else:
 			for tick in ax.yaxis.get_major_ticks(): # Plot de los indices de la escala en el eje X
-				tick.label1.set_fontsize(25); 	tick.label1.set_fontweight('normal')
+				tick.label1.set_fontsize(15); 	tick.label1.set_fontweight('normal')
 
 		# ---- X-TICKS ---- # 
 		if 'font_size' in ticks:		ticks_font_size = ticks['font_size']
-		else:							ticks_font_size = 25
+		else:							ticks_font_size = 10
 		ax.set_xticklabels([])
-		plt.xticks( np.arange(data.shape[0])*(step_com)+1, steps_names, size=ticks_font_size )
+		ax.xaxis.set_ticks( np.arange(data.shape[0])*(step_com)+1/2, steps_names, size=ticks_font_size )
 
 		# ---- PLOT ---- # 
 		patches.Rectangle((1,1),2,2, color='#AAAAAA')
 		for step in range(data.shape[0]):
-			plt.plot([step*(step_com), step*(step_com)+step_width], [data[step], data[step]], color=color[0], lw = 7 )
+			ax.plot([step*(step_com), step*(step_com)+step_width], [data[step], data[step]], color=color[0], lw = 7 )
 
 			if 'show' in text and text['show']:
 				if 'font_size' in text:			text_font_size = text['font_size']
 				else:							text_font_size = 30
-				plt.text(x=step*(step_com)+step_width/2 , y=data[step]+(ylim[1]-ylim[0])*0.03, s=str(steps_names[step]),
+				ax.text(x=step*(step_com)+step_width/2 , y=data[step]+(ylim[1]-ylim[0])*0.03, s=str(steps_names[step]),
 				            backgroundcolor='#FFFFFF', color='black', weight='roman', horizontalalignment='center',
 				            size=text_font_size, alpha=0.7,
 				             bbox=dict(facecolor='red', alpha=0.0)) # n*(step_com)+step_width/3 , data[n,system_i]
@@ -569,42 +579,33 @@ class OxigenReaction(object):
 			else: vl_linestyle = '--'
 			
 			if 'linewidth' in verticallines: vl_linewidth = verticallines['linewidth']
-			else: vl_linewidth = 7	
+			else: vl_linewidth = 7
 
 			if 'color' in verticallines: vl_color = verticallines['color']
 			else: vl_color = color[system_i]	
 			
 			for system_i in range(data.shape[1]):
 				for n in range(data.shape[0]-1):
-					plt.plot([(n+1)*(step_width), (n+1)*(step_width)+step_sparce], [data[n,system_i], data[n+1,system_i]], color=vl_color, 
+					ax.plot([(n+1)*(step_width), (n+1)*(step_width)+step_sparce], [data[n,system_i], data[n+1,system_i]], color=vl_color, 
 						linewidth = vl_linewidth, linestyle=vl_linestyle )
 
 			# ---- TITLE ---- #
 		if 'title' in label:
-			plt.title('{}'.format(label['title']), backgroundcolor='#ffffff', color='black', weight='roman', size=40, pad=30)
+			ax.set_title('{}'.format(label['title']), backgroundcolor='#ffffff', color='black', weight='roman', size=20, pad=30)
 		elif label == None:	
 			if verbosity > 0: print('WARNNING :: label arg has NOT title hyperparameter :: defaut tile = ' ' ')
-			plt.title('{}'.format(' '), backgroundcolor='#ffffff', color='black', weight='roman', size=40, pad=30)
+			ax.set_title('{}'.format(' '), backgroundcolor='#ffffff', color='black', weight='roman', size=20, pad=30)
 
 			# --- Axis label --- #
 		if 'xlabel' in label:
-			plt.xlabel(str(label['xlabel']), backgroundcolor='#ffffff', color='black', weight='roman', size=25, labelpad=10) # nombre de X
+			ax.set_xlabel(str(label['xlabel']), backgroundcolor='#ffffff', color='black', weight='roman', size=15, labelpad=10) # nombre de X
 		else:
-			plt.xlabel('xlabel', backgroundcolor='#ffffff', color='black', weight='roman', size=25, labelpad=10) # nombre de X
+			ax.set_xlabel('xlabel', backgroundcolor='#ffffff', color='black', weight='roman', size=15, labelpad=10) # nombre de X
 
 		if 'ylabel' in label:
-			plt.ylabel(str(label['ylabel']), backgroundcolor='#ffffff', color='black', weight='roman', size=30, labelpad=20) # nombre de Y
+			ax.set_ylabel(str(label['ylabel']), backgroundcolor='#ffffff', color='black', weight='roman', size=15, labelpad=20) # nombre de Y
 		else:
-			plt.ylabel('ylabel', backgroundcolor='#ffffff', color='black', weight='roman', size=30, labelpad=20) # nombre de Y
-
-			# ---- REFERENCES ---- #
-		#for i, n in enumerate(range(data.shape[1])):
-		#	plt.figtext(0.84 , 0.76+0.05*i, '                                                                                         ',
-		#	            backgroundcolor=color[i], color='black', weight='roman',
-		#	            size=5)
-		#	plt.figtext(0.90, 0.75+0.05*i, system_name[i],
-		#	            backgroundcolor='#ffffff', color='black', weight='roman',
-		#	            size=26, )
+			ax.set_ylabel('ylabel', backgroundcolor='#ffffff', color='black', weight='roman', size=15, labelpad=20) # nombre de Y
 
 		# ---- DELTA value ---- # 
 		if 'show' in delta and delta['show']:
@@ -618,21 +619,22 @@ class OxigenReaction(object):
 
 		# ---- overpotencial value PLOT ---- # 
 		if 'show' in OP_plot and OP_plot['show']:
-			dG= -(data[:-1] - data[1:])
+			dG = -(data[:-1] - data[1:])
 			OP_j = np.max(dG)
 			OP_j_arg = np.argmax(dG)
 
 			if 'font_size' in OP_plot:	OP_font_size = OP_plot['font_size']
-			else:						OP_font_size = 30
+			else:						OP_font_size = 10
 			X0 = OP_j_arg*(step_com)+step_width
 			Y0, Y1 = data[OP_j_arg+1], data[OP_j_arg+1] - OP_j
-			t = plt.text(X0 + 0.1*step_com, (data[OP_j_arg]+data[OP_j_arg+1])/2 , '{0:> 2.3f}'.format(data[OP_j_arg+1]-data[OP_j_arg]),
+			t = ax.text(X0 + 0.1*step_com, (data[OP_j_arg]+data[OP_j_arg+1])/2 , '{0:> 2.3f}'.format(data[OP_j_arg+1]-data[OP_j_arg]),
 						backgroundcolor='#FFFFFF', color='black', weight='roman',
 						size=OP_font_size, verticalalignment='center', alpha=0.7,
 						bbox=dict(facecolor='red', alpha=0.0)) # transform=ax.transAxes
 
-			plt.annotate(text='', xy=(X0, Y0), xytext=(X0, Y1), size=80, arrowprops=dict(arrowstyle='<->', color=color[0], lw=3, ), color=color[0], alpha=0.3 )
+			ax.annotate(text='', xy=(X0, Y0), xytext=(X0, Y1), size=20, arrowprops=dict(arrowstyle='<->', color=color[0], lw=3, ), color=color[0], alpha=0.3 )
 
+		# ---- save PLOT ---- # 
 		try:
 			if 'name' in save and save['name'] != None:	savefig_name = save['name']
 			else: 										savefig_name = label['title']
@@ -645,8 +647,9 @@ class OxigenReaction(object):
 
 			save['dpi'] = save['dpi'] if 'dpi' in save else 300
 			print('{}/{}.{}'.format(savefig_folder, savefig_name, savefig_ext))
-			plt.savefig('{}/{}.{}'.format(savefig_folder, savefig_name, savefig_ext), bbox_inches='tight', dpi=save['dpi'])
+			ax.savefig('{}/{}.{}'.format(savefig_folder, savefig_name, savefig_ext), bbox_inches='tight', dpi=save['dpi'])
 
+		# ---- except PLOT ---- # 
 		except OSError as err:
 			print("OS error: {0}".format(err))
 		except ValueError:
@@ -654,7 +657,131 @@ class OxigenReaction(object):
 		except:
 			print('ERROR :: code 0?? :: can NOT save figure ')
 			#raise
-		
+
+	@Logs.LogDecorator()
+	def plot_purvoix(self, Umin, Umax, ax=None, save=True, v=True):
+		U = np.arange(0, 2)
+
+		self.G_U( U = U )
+
+		if ax==None:	fig, ax = plt.subplots()
+		else:			fig = ax.get_figure()
+
+		Gu_0   = np.zeros_like(U)
+		Gu_OOH = Gu_0 + self.ORR['G1_U_ORR']
+		Gu_O   = Gu_0 + self.ORR['G1_U_ORR'] + self.ORR['G2_U_ORR']
+		Gu_OH  = Gu_0 + self.ORR['G1_U_ORR'] + self.ORR['G2_U_ORR'] + self.ORR['G3_U_ORR']
+		Gu_f   = Gu_0 + self.ORR['G1_U_ORR'] + self.ORR['G2_U_ORR'] + self.ORR['G3_U_ORR'] + self.ORR['G4_U_ORR']
+
+
+		ax.plot(U, Gu_0,   label='G0')
+		ax.plot(U, Gu_f,   label='Gf')
+		ax.plot(U, Gu_O,   label='G_Oads')
+		ax.plot(U, Gu_OH,  label='G_OHads')
+		ax.plot(U, Gu_OOH, label='G_OOHads')
+
+		ax.legend()
+
+		if save: self.U = U
+
+		return ax
+
+	@Logs.LogDecorator()
+	def plot_absortion(self, ax=None, save=True, v=True):
+		U = np.arange(0, 2)
+
+		self.G_U( U = U )
+
+		if ax==None:	fig, ax = plt.subplots(figsize =(4, 8))
+		else:			fig = ax.get_figure()
+
+		absortion_dict = self.get_absortion()
+		# set width of bar
+		barWidth = 0.5
+		 
+		# set height of bar
+		E_data = [absortion_dict['Eabs_O'], absortion_dict['Eabs_OH'], absortion_dict['Eabs_OOH']]
+		G_data = [absortion_dict['Gabs_O'], absortion_dict['Gabs_OH'], absortion_dict['Gabs_OOH']]
+		 		 
+		# Make the plot
+		ax.bar(1, absortion_dict['Gabs_O'], color =(0.9,0.5,0.5), width = barWidth,
+		        edgecolor =None, label ='Gabs_O')
+		ax.bar(1, absortion_dict['Eabs_O'], color =(0.8,0.4,0.4), width = barWidth,
+		        edgecolor =None, label ='Eabs_O')
+
+		ax.bar(1.50, absortion_dict['Gabs_OH'], color =(0.5,0.9,0.5), width = barWidth,
+		        edgecolor =None, label ='Gabs_OH')
+		ax.bar(1.50, absortion_dict['Eabs_OH'], color =(0.4,0.8,0.4), width = barWidth,
+		        edgecolor =None, label ='Eabs_OH')
+
+		ax.bar(0.50, absortion_dict['Gabs_OOH'], color =(0.5,0.5,0.9), width = barWidth,
+		        edgecolor =None, label ='Gabs_OOH')
+		ax.bar(0.50, absortion_dict['Eabs_OOH'], color =(0.4,0.4,0.8), width = barWidth,
+		        edgecolor =None, label ='Eabs_OOH')	 
+
+		# Adding Xticks
+		ax.set_xlabel('Absobate', fontweight ='bold', fontsize = 15)
+		ax.set_ylabel('Energy (eV)/Free energy  change (eV)', fontweight ='bold', fontsize = 15)
+		ax.xaxis.set_ticks([0.5, 1, 1.5], ['OOH', 'O', 'OH'])
+		 
+		ax.legend()
+		plt.tight_layout()
+
+		if save: self.U = U
+
+		return True
+
+	@Logs.LogDecorator()
+	def plot_table(self, title='Data', ax=None, save=True, v=True):
+		if ax==None:	fig, ax = plt.subplots(figsize =(4, 8))
+		else:			fig = ax.get_figure()
+
+		fig.patch.set_visible(False)
+		ax.axis('off')
+		ax.axis('tight')
+
+		# === Structure data === # 
+		absortion_dict = self.get_absortion()
+		E_data = [absortion_dict['Eabs_O'], absortion_dict['Eabs_OH'], absortion_dict['Eabs_OOH'], '']
+		G_data = [absortion_dict['Gabs_O'], absortion_dict['Gabs_OH'], absortion_dict['Gabs_OOH'], '']
+
+		dG_dict = self.get_dG_ORR_4e()
+		dGi  = [ dG_dict['dG1'], dG_dict['dG2'], dG_dict['dG3'], dG_dict['dG4'] ]
+
+		Gabs_data = [['dG1', 'dG2', 'dG3', 'dG4'],
+				     ['{:.3}eV'.format(Gn) for Gn in dGi],
+				     ['dG_O(E_O)', 'dG_OH(E_OH)', 'dG_OOH(E_OOH)', ''],
+		 		     [ '{:.3}eV({:.3}eV)'.format(Gan, Ean)for Gan, Ean in zip(G_data, E_data) ]]
+
+
+		# table 2
+		table = ax.table(cellText=Gabs_data, loc='center', fontsize=20) # rowLabels=row_labels, colLabels=[1,3,4,5]
+		table.auto_set_font_size(False)
+		table.scale(1.2, 1.2) 
+		table.set_fontsize(15)
+
+		plt.tight_layout()
+
+	@Logs.LogDecorator()
+	def plot_integrated(self, name='', save=True, v=True):
+
+		# === make figure === #
+		fig = plt.figure(figsize=(10, 10), dpi=80, constrained_layout=False, facecolor='0.9')
+		fig.suptitle(name, size=20)
+		gs = fig.add_gridspec(nrows=4, ncols=4,)#left=0.05, right=0.75, hspace=0.1, wspace=0.05)
+		ax0 = fig.add_subplot(gs[:-1, :2])
+		ax1 = fig.add_subplot(gs[:-1, 2:])
+		ax2 = fig.add_subplot(gs[-1, :])
+		ax = [ax0, ax1, ax2]
+
+		# === make PLOTs === #
+		self.plot(ax=ax[0], save=True, v=True)
+		self.plot_absortion(ax=ax[1], save=True, v=True)
+		self.plot_table(ax=ax2, save=True, v=True)
+
+		#plt.tight_layout()
+
+	@Logs.LogDecorator()
 	def summary(self, ):
 		print(f'==== ORR =====')
 		self.summarise_steps()
@@ -697,292 +824,199 @@ class OxigenReaction(object):
 			print('ERROR :: ORR.summarise_absortion() :: Need to calculate ORR.reation() ')
 			return None
 
+	def get_dG_ORR_4e(self, v=False, save=True):
+		try:
+			dG_dict = {
+				'dG1':   self.ORR['G1_ORR'],   'dG2':   self.ORR['G2_ORR'],
+				'dG3':   self.ORR['G3_ORR'],   'dG4':   self.ORR['G4_ORR'], }
+			self.dG_dict = dG_dict
+			return dG_dict
+		except:
+			print('ERROR :: ORR.summarise_absortion() :: Need to calculate ORR.reation() ')
+			return None
+
 	def cookbook(self, ):
 		# data base loader class
 		# data base store path info
 		# ==== cookbook plot with values ==== 
-		orr = OxigenReaction()
-		orr.calculate(sys={'E':-805.522,'ZPE':0.0,'S':0.0}, sys_O={'E':-811.362,'ZPE':0.07,'S':0.0}, sys_OH={'E':-815.785,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-820.329,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-								H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
+		def G2K():
+			orr = OxigenReaction()
+			orr.calculate(sys={'E':-805.522,'ZPE':0.0,'S':0.0}, sys_O={'E':-811.362,'ZPE':0.07,'S':0.0}, sys_OH={'E':-815.785,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-820.329,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+									H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
 
-		plt.plot( orr.G2K(orr.G_U(U = np.linspace(-1,0.60,100))[0,:]) )
-		print( orr.G2K(orr.G_U(U = np.linspace(-1,0.60,100))[0,:]) )
-		plt.show()
+			plt.plot( orr.G2K(orr.G_U(U = np.linspace(-1,0.60,100))[0,:]) )
+			plt.show()
 
-'''
-orr = OxigenReaction() # ==== FeTPyPCo ==== #
-orr.calculate(sys={'E':-529.844,'ZPE':0.0,'S':0.0}, sys_O={'E':-535.607,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-540.078,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-544.641,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.209,'ZPE':0.56,'S':0.67}, H2={'E':-6.756,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
-
-orr = OxigenReaction() # ==== FeTPyP propeller ==== #
-orr.calculate(sys={'E':-522.593,'ZPE':0.0,'S':0.0}, sys_O={'E':-528.607,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-532.941,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-537.464,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.209,'ZPE':0.56,'S':0.67}, H2={'E':-6.756,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
+		def purvoix():
+			orr = OxigenReaction() # ==== CoTPyPCo* ==== #
+			orr.calculate(	sys={'E':-832.979,'ZPE':0.0,'S':0.0}, sys_O={'E':-838.489,'ZPE':0.07,'S':0.0}, 
+							sys_OH={'E':-843.279,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-847.754,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+									H2O={'E':-14.209,'ZPE':0.56,'S':0.67}, H2={'E':-6.756,'ZPE':0.27,'S':0.41}, Gb=-1.604+ 0.309*0)
+			orr.plot_purvoix(0, 2)
+			orr.plot()
+			plt.show()
 
 
+if __name__ == "__main__":
 
-
-orr = OxigenReaction() # FeTPyP Au 
-orr.calculate(sys={'E':-838.637,'ZPE':0.0,'S':0.0}, sys_O={'E':-844.246,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-848.678,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-853.228,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.209,'ZPE':0.56,'S':0.67}, H2={'E':-6.756,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
-
-
-
-orr = OxigenReaction() # ==== FeTPyP saddle ==== #
-orr.calculate(sys={'E':-522.279,'ZPE':0.0,'S':0.0}, sys_O={'E':-528.396,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-532.667,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-537.250,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.209,'ZPE':0.56,'S':0.67}, H2={'E':-6.756,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
-
-plt.show()
-'''
-
-'''
-labels = [	
-			'CoTPyP', 	  'FeTPyP',		'CoFeTPyP',
-			'Fe*TPyPCo',  'FeTPyCo*',
-			'Co*FeTPyPCo','CoFeTPyPCo*',
-			'FeTPyP[WO-Co]',	]
-
-dataset = np.array([
-	[0.5578, 0.5332, 0.1374, 0.2328, 0.2337, 0.2534, 0.1847], # CoTPyP
-	[0.4957, 0.5060, 0.6625, 0.6881, 0.5191, 0.5224, 0.5753], # FeTPyP
-	[0.5289, 0.5367, 0.7111, 0.7124, 0.5586, 0.5574, 0.6116], # FeTPyP NONcompress
-
-	[0.8237, 0.8528, 0.3772, 0.2725, 0.5242, 0.4215, 0.3656], # CoFeTPyP
-
-	[0.5861, 0.5984, 0.7811, 0.7645, 0.6331, 0.6469, 0.6923], # Fe*TPyPCo
-	[0.2962, 0.2902, 0.3402, 0.5941, 0.4179, 0.5102, 0.5516], # FeTPyPCo*
-
-	[0.8552, 0.8598, 0.3956, 0.2766, 0.5822, 0.5165, 0.4097], #Co*FeTPyPCo
-	[0.3501, 0.3371, 0.6238, 0.7224, 0.4501, 0.4449, 0.5836], #CoFeTPyPCo*
-
-	#[0.5100, 0.5200, 0.7480, , , 0.542, 0.650]
-	])
-
-#plt.plot(dataset.T,)
-#plt.show()
-
-# FeTPyP OPT86 METALEs 
-orr = OxigenReaction()
-orr.calculate(sys={'E':-426.206,'ZPE':0.0,'S':0.0}, sys_O={'E':-430.232,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-434.565,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-437.278,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-12.203,'ZPE':0.56,'S':0.67}, H2={'E':-6.805,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
-plt.show()
-'''
-
-
-
-'''
-# CoTPyP OPT86 METALEs 
-orr = OxigenReaction()
-orr.calculate(sys={'E':-502.467,'ZPE':0.0,'S':0.0}, sys_O={'E':-505.234,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-510.652,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-513.557,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-12.209,'ZPE':0.56,'S':0.67}, H2={'E':-6.20,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
-plt.show()
-
-# CoTPyP OPT86 
-orr = OxigenReaction()
-orr.calculate(sys={'E':-502.467,'ZPE':0.0,'S':0.0}, sys_O={'E':-505.234,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-510.652,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-513.557,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-12.209,'ZPE':0.56,'S':0.67}, H2={'E':-6.20,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
-plt.show()
-
-# FeTPyP[Co] D3 
-orr = OxigenReaction()
-orr.calculate(sys={'E':-819.983,'ZPE':0.0,'S':0.0}, sys_O={'E':-825.603,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-830.085,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-834.640,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.209,'ZPE':0.56,'S':0.67}, H2={'E':-6.75,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
-plt.show()
-
-# FeTPyP[Co] D3 
-orr = OxigenReaction()
-orr.calculate(sys={'E':-819.983,'ZPE':0.0,'S':0.0}, sys_O={'E':-825.603,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-830.085,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-834.640,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.209,'ZPE':0.56,'S':0.67}, H2={'E':-6.75,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
-plt.show()
-'''
-
-
-
-
-
-
-
-
-
-'''
-orr = OxigenReaction()
-orr.calculate(sys={'E':-372.059,'ZPE':0.0,'S':0.0}, sys_O={'E':-375.073,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-380.378,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-383.289,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-12.803,'ZPE':0.56,'S':0.67}, H2={'E':-7.154,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
-
-# https://gitlab.com/gpaw/gpaw/-/issues/77
-# CoPC BEEF 
-orr.calculate(sys={'E':-365.991,'ZPE':0.0,'S':0.0}, sys_O={'E':-369.003,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-374.255, 'ZPE':0.35,'S':0.0}, sys_OOH={'E':-377.124,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-12.803,'ZPE':0.56,'S':0.67}, H2={'E':-7.154,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
-
-# CoPC + Bz BEEF 
-orr.calculate(sys={'E':-718.185,'ZPE':0.0,'S':0.0}, sys_O={'E':-721.038,'ZPE':0.07,'S':0.0}, 
-				sys_OH={'E':-726.344, 'ZPE':0.35,'S':0.0}, sys_OOH={'E':-729.312,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-12.803,'ZPE':0.56,'S':0.67}, H2={'E':-7.154,'ZPE':0.27,'S':0.41}, Gb=-0)
-orr.plot()
-orr.summarise_steps()
-orr.summarise_absortion()
-plt.show()
-
-FePC = True
-if FePC:
-	# FePC BEEF 
-	orr = OxigenReaction()
-	orr.calculate(  sys   ={'E':-373.518,'ZPE':0.00,'S':0.0}, sys_O  ={'E':-377.642,'ZPE':0.07,'S':0.0}, 
-					sys_OH={'E':-382.121,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-384.708,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-							H2O={'E':-12.803,'ZPE':0.56,'S':0.67}, H2={'E':-7.154,'ZPE':0.27,'S':0.41}, Gb=-0)
-	orr.plot()
+	orr = OxigenReaction() # ========= FeTPyP[Co] + Au 13.7 (M2) D3 ========= # 
+	orr.calculate(sys={'E':-819.983,'ZPE':0.0,'S':0.0}, sys_O={'E':-825.643,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-830.0851,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-834.585,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP[Co] + Au 13.7 (M2) D3'.format(0))
 	orr.summarise_steps()
 	orr.summarise_absortion()
 
-
-	# https://gitlab.com/gpaw/gpaw/-/issues/77
-	# FePC + BZ BEEF 
-	orr.calculate(  sys   ={'E':-719.527,'ZPE':0.00,'S':0.0}, sys_O  ={'E':-723.757,'ZPE':0.07,'S':0.0}, 
-					sys_OH={'E':-728.279,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-731.035,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-							H2O={'E':-12.803,'ZPE':0.56,'S':0.67}, H2={'E':-7.154,'ZPE':0.27,'S':0.41}, Gb=-0)
-	orr.plot()
+	orr = OxigenReaction() # ========= FeTPyP + Au 13.7  D3 ========= # 
+	orr.calculate(sys={'E':-826.4871,'ZPE':0.0,'S':0.0}, sys_O={'E':-832.049,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-836.5126,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-841.0342,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + Au 13.7 (M2) D3'.format(0))
 	orr.summarise_steps()
 	orr.summarise_absortion()
 
-	orr.calculate(	sys   ={'E':-367.293,'ZPE':0.00,'S':0.0},  sys_O  ={'E':-371.566,'ZPE':0.07,'S':0.0}, 
-					sys_OH={'E':-376.013, 'ZPE':0.35,'S':0.0}, sys_OOH={'E':-378.580,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-							H2O={'E':-12.803,'ZPE':0.56,'S':0.67}, H2={'E':-7.154,'ZPE':0.27,'S':0.41}, Gb=-0)
-	orr.plot()
+	orr = OxigenReaction() # ========= FeTPyPCo + Au 13.7 (M2) D3 ========= # 
+	orr.calculate(sys={'E':-834.4041,'ZPE':0.0,'S':0.0}, sys_O={'E':-840.234,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-844.608,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-849.181,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyPCo + Au 13.7 (M2) D3'.format(0))
 	orr.summarise_steps()
 	orr.summarise_absortion()
 
 	plt.show()
-'''
 
-'''
-orr.calculate(sys={'E':-805.522,'ZPE':0.0,'S':0.0}, sys_O={'E':-811.362,'ZPE':0.07,'S':0.0}, sys_OH={'E':-815.785,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-820.329,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.537*4)
-orr.plot()
-plt.show()
-#orr.summarise_steps()
-#orr.summarise_absortion()
+	asdf
 
-orr.calculate(sys={'E':-1121.632,'ZPE':0.0,'S':0.0}, sys_O={'E':-1127.4784,'ZPE':0.07,'S':0.0}, sys_OH={'E':-1131.8785,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-1136.4522,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
-orr.plot()
-orr.calculate(sys={'E':-1121.632,'ZPE':0.0,'S':0.0}, sys_O={'E':-1127.4784,'ZPE':0.07,'S':0.0}, sys_OH={'E':-1131.8785,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-1136.4522,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.5599*4)
-orr.plot()
+	# ========================== TPyP + F ========================== #  	# ========================== PC ========================== #  	# ========================== PC ========================== #  
+	# ========================== Au ========================== #  
+	orr = OxigenReaction() # ========= FeTPyP + 1F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-826.4052,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.9717,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-836.4334,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.967,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 1F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()
 
+	orr = OxigenReaction() # ========= FeTPyP + 2F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-826.262,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.8407,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-836.301,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.842,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 2F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()
 
-orr.calculate(sys={'E':-740.5996,'ZPE':0.0,'S':0.0}, sys_O={'E':-746.2118,'ZPE':0.07,'S':0.0}, sys_OH={'E':-750.7263,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-755.3344,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
-orr.plot()
-orr.calculate(sys={'E':-740.5996,'ZPE':0.0,'S':0.0}, sys_O={'E':-746.2118,'ZPE':0.07,'S':0.0}, sys_OH={'E':-750.7263,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-755.3344,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.445*4)
-orr.plot()
+	orr = OxigenReaction() # ========= FeTPyP + 3F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-826.251,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.829,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-836.285,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.815,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 3F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()
 
+	orr = OxigenReaction() # ========= FeTPyP + 4F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-826.019,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.627,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-836.0545,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.5998,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 4F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()
 
-plt.show()
-'''
+	orr = OxigenReaction() # ========= FeTPyP + 5F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-825.667,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.3916,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-835.8226,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.3633,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 5F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion() # ??????????????????????????? * O* OH* OOH* ?????????????
 
-'''
-# ==== cookbook plot with values ==== 
-orr = OxigenReaction()
-orr.calculate(sys={'E':-423.381,'ZPE':0.0,'S':0.0}, sys_O={'E':-429.238,'ZPE':0.07,'S':0.0}, sys_OH={'E':-433.633,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-438.183,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41})
-orr.summarise_steps()
-orr.summarise_absortion()
-orr.plot()
-plt.show()
-'''
-
-''' 
-orr = OxigenReaction()
-orr.calculate(sys={'E':-737.92539,'ZPE':0.0,'S':0.0}, sys_O={'E':-742.18836,'ZPE':0.07,'S':0.0}, sys_OH={'E':-747.65332,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-752.29160,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41})
-orr.summarise_steps()
-orr.summarise_absortion()
-orr.plot()
-plt.show()
-'''
-
-
-
-'''
-orr = OxigenReaction()
-# CoPC (Au vs free)
-orr.calculate(sys={'E':-739.385,'ZPE':0.0,'S':0.0}, sys_O={'E':-743.573,'ZPE':0.07,'S':0.0}, sys_OH={'E':-749.117,'ZPE':0.35,'S':0.0}, 
-			  sys_OOH={'E':-753.800,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
-#	FREE  	O 	   O(70meV peor) OH     OOH    OOH (130meV peor)
-#Co 	0.654   1.523  0.460         0.00   0.00  1.170
-#O 			1.078  0.591         0.00   0.00   0.471
-#O 						                0.00  0.140
-orr.plot()
-orr.summarise_absortion()
-orr.summarise_steps()
-
-orr.calculate(sys={'E':-422.133,'ZPE':0.0,'S':0.0}, sys_O={'E':-426.500,'ZPE':0.07,'S':0.0}, sys_OH={'E':-432.034,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-436.660,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
-#/home/busnengo/PAULA/FePC/Metal/Sustratos_PC/free/Co
-#/home/busnengo/PAULA/FePC/Metal/Sustratos_PC/free/Co/OOH
-#	FREE  	O 	  OH     OOH   OOH(150mev peor)
-#Co 	0.984   0.00  0.04   0.00  1.285
-#O 			0.00  0.15   0.00  0.466
-#O 						 0.00  0.115
-orr.plot()
-orr.summarise_absortion()
-orr.summarise_steps()
-
-orr.calculate(sys={'E':-1120.763,'ZPE':0.0,'S':0.0}, sys_O={'E':-1125.145,'ZPE':0.07,'S':0.0}, sys_OH={'E':-1130.645,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-1135.292,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-						H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
-#/home/busnengo/PAULA/FePC/rmCoPC_5BE/rmGAMMA/rmNUD2/rmFREE
-orr.plot()
-orr.summarise_absortion()
-orr.summarise_steps()
-
-plt.show()
-
-'''
+	orr = OxigenReaction() # ========= FeTPyP + 6F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-826.019,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.2021,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-835.609,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.169,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 6F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion() # ??????????????????????????? * O* OH* OOH* ?????????????
 
 
+	orr = OxigenReaction() # ========= FeTPyP + 7F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-825.4916,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.163,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-835.575,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.123,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 7F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion() 
 
+	orr = OxigenReaction() # ========= FeTPyP + 8F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-825.159,'ZPE':0.0,'S':0.0}, sys_O={'E':-830.8333,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-835.2454,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-839.736,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 8F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  # ??????????????????????????? OOH* ?????????????
+		
+	plt.show()
+
+	sdaf840873
+	# ========================== PC ========================== #  	# ========================== PC ========================== #  	# ========================== PC ========================== #  
+	# ========================== Au ========================== #  
+	orr = OxigenReaction() # ========= CoPc Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-739.390,'ZPE':0.0,'S':0.0}, sys_O={'E':-743.650,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-749.118,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-753.764,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('CoPc FREE 13.7 :: ')
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	orr = OxigenReaction() # ========= FePc Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-740.603,'ZPE':0.0,'S':0.0}, sys_O={'E':-746.213,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-750.736,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-755.342,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('CoPc FREE 13.7 :: ')
+	orr.summarise_steps()
+	orr.summarise_absortion()
+	plt.show()
+	# ========================== FREE ========================== #  
+	orr = OxigenReaction() # ========= CoPc FREE 13.7 ========= # 
+	orr.calculate(sys={'E':-422.133,'ZPE':0.0,'S':0.0}, sys_O={'E':-426.500,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-432.039,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-436.660,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('CoPc FREE 13.7 :: ')
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	orr = OxigenReaction() # ========= FePc FREE 13.7 ========= # 
+	orr.calculate(sys={'E':-423.284,'ZPE':0.0,'S':0.0}, sys_O={'E':-429.238,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-433.647,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-438.210,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FePc FREE 13.7')
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	# ========================== TPyP ========================== #  # ========================== TPyP ========================== #   # ========================== TPyP ========================== #  
+
+
+	# ========================== FREE ========================== #  
+	orr = OxigenReaction() # ========= CoTPyP FREE 13.7 ========= # 
+	orr.calculate(sys={'E':-521.012,'ZPE':0.0,'S':0.0}, sys_O={'E':-525.868,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-531.0189,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-535.629,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('CoPc FREE 13.7 :: ')
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+
+	orr = OxigenReaction() # ========= FeTPyPCo [Au] ========= # 
+	orr.calculate(sys={'E':-529.3589,'ZPE':0.0,'S':0.0}, sys_O={'E':-535.2943,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-539.774,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-544.254,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyPCo [Au]')
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	orr = OxigenReaction() # ========= FeTPyP[Co] [Au] ========= # 
+	orr.calculate(sys={'E':-520.4334,'ZPE':0.0,'S':0.0}, sys_O={'E':-526.588,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-530.968,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-535.4477,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP[Co] [Au]')
+	orr.summarise_steps()
+	orr.summarise_absortion()

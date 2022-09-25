@@ -1,0 +1,396 @@
+Exception raised in asdf. exception: name 'asdfasdf' is not definedException raised in asdf. exception: name 'asdfasdf' is not defined>> 2022-08-20 14:39:26.075813 >> Exception raised in asdf. exception: name 'asdfasdf' is not defined>> 2022-08-20 14:39:39.359396 >> Exception raised in asdf. exception: name 'asdfasdf' is not defined>> 2022-08-20 14:39:40.337517 >> Exception raised in asdf. exception: name 'asdfasdf' is not defined>> 2022-08-20 14:40:11.140487 >> Exception raised in asdf. exception: name 'asdfasdf' is not defined
+
+>> 2022-08-20 14:40:12.744398 >> Exception raised in asdf. exception: name 'asdfasdf' is not defined
+
+>> 2022-08-20 14:40:13.802628 >> Exception raised in asdf. exception: name 'asdfasdf' is not defined
+
+>> 2022-08-30 15:12:50.361652 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'go' is not defined
+
+>> 2022-08-30 15:13:01.336499 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: No module named 'plotly'
+
+>> 2022-08-30 15:19:44.535850 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: 'Figure' object has no attribute 'savefig'
+
+>> 2022-08-30 15:21:40.010270 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'x' is not defined
+
+>> 2022-08-30 15:22:13.960752 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'mlab' is not defined
+
+>> 2022-08-30 15:22:35.974060 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: No module named 'mayavi'
+
+>> 2022-08-30 15:25:27.597014 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'fig' is not defined
+
+>> 2022-08-30 15:40:55.966245 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 15:41:03.486051 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 20:16:57.759657 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: local variable 'path' referenced before assignment
+
+>> 2022-08-30 20:17:16.550528 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: [Errno 2] No such file or directory: 'my_data.csv'
+
+>> 2022-08-30 20:17:23.301822 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: [Errno 2] No such file or directory: ''
+
+>> 2022-08-30 20:18:52.308322 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 20:19:25.064655 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 20:23:18.581642 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 20:23:32.704838 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 20:23:45.839426 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 20:23:53.899383 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 20:28:00.706166 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 20:28:18.133990 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 20:49:30.058940 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 20:51:35.422306 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: list index out of range
+
+>> 2022-08-30 20:51:45.472776 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 21:02:23.527872 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 21:04:03.568560 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 21:04:46.990132 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 21:05:42.292075 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 21:06:15.940326 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: unsupported operand type(s) for /: 'str' and 'int'
+
+>> 2022-08-30 21:06:34.535523 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 21:08:27.701081 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 21:08:42.320425 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 21:08:56.051812 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 21:09:08.991416 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 21:09:42.418499 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 21:33:32.261741 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: invalid literal for int() with base 10: '0.100000000000E+01'
+
+>> 2022-08-30 22:47:28.270168 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:47:50.992378 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:48:04.351354 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:48:12.117159 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:48:27.498700 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:48:41.055192 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:48:45.541172 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:48:59.075122 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:49:56.950385 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:51:27.799579 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:51:44.432197 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: invalid literal for int() with base 10: '0.12076581679E+01'
+
+>> 2022-08-30 22:52:03.863966 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: invalid literal for int() with base 10: '0.12076581679E+01'
+
+>> 2022-08-30 22:52:42.587783 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: invalid literal for int() with base 10: '0.12076581679E+01'
+
+>> 2022-08-30 22:52:59.434438 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: invalid literal for int() with base 10: '0.26599048807E+01'
+
+>> 2022-08-30 22:53:14.410076 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:55:57.058457 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:57:13.775203 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:57:35.865990 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 22:58:28.228443 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:00:04.368701 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:00:27.194977 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:00:45.477571 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:01:03.170332 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:19:32.642245 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:23:32.051903 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:24:52.335607 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:25:05.429595 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:25:24.994178 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:26:21.170461 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: name 'asdf' is not defined
+
+>> 2022-08-30 23:27:25.626663 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:27:37.433326 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:27:48.768732 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:28:07.625177 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:28:57.936679 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:29:14.804077 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:29:22.095025 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:30:02.017856 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:30:12.046605 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:30:23.622528 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:30:43.269371 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:31:35.409118 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:31:56.896654 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:32:56.689087 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:33:10.892225 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:33:46.988319 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:33:52.565582 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:34:00.037232 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:34:05.392200 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:34:22.075837 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:34:27.850264 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:34:47.425746 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:36:05.297712 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: float() argument must be a string or a number, not 'list'
+
+>> 2022-08-30 23:39:04.446682 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: float() argument must be a string or a number, not 'list'
+
+>> 2022-08-30 23:39:07.631950 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: float() argument must be a string or a number, not 'list'
+
+>> 2022-08-30 23:39:23.104790 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: could not convert string to float: 'augmentation'
+
+>> 2022-08-30 23:39:58.029556 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:43:43.083445 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:45:09.359728 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:46:20.136867 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:46:36.822657 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:47:39.402954 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:48:33.323815 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: name 'asdsad' is not defined
+
+>> 2022-08-30 23:52:11.436432 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: name 'save' is not defined
+
+>> 2022-08-31 00:25:59.872657 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: Each element of the 'contours' trait of a Contour instance must be -1.8255768497 <= a number <= 39397.166398, but a value of -67.924 <class 'float'> was specified.
+
+>> 2022-08-31 11:14:38.464562 >> Exception raised in >> __main__.POSCAR.direct_to_cartesian(): >> exception: '<=' not supported between instances of 'NoneType' and 'float'
+
+>> 2022-08-31 11:15:31.207599 >> Exception raised in >> __main__.POSCAR.direct_to_cartesian(): >> exception: '<=' not supported between instances of 'NoneType' and 'float'
+
+>> 2022-08-31 13:52:49.122025 >> Exception raised in >> __main__.POSCAR.direct_to_cartesian(): >> exception: '<=' not supported between instances of 'NoneType' and 'float'
+
+>> 2022-09-01 10:49:42.933522 >> Exception raised in >> __main__.POSCAR.direct_to_cartesian(): >> exception: '<=' not supported between instances of 'NoneType' and 'float'
+
+>> 2022-09-11 12:53:09.698447 >> Exception raised in >> __main__.POSCAR.operations(): >> exception: 'atoms2move'
+
+>> 2022-09-11 12:53:09.698687 >> Exception raised in >> __main__.POSCAR.data_augmentation(): >> exception: 'atoms2move'
+
+>> 2022-09-11 12:53:51.844635 >> Exception raised in >> __main__.POSCAR.operations(): >> exception: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+
+>> 2022-09-11 12:53:51.844741 >> Exception raised in >> __main__.POSCAR.data_augmentation(): >> exception: only integers, slices (`:`), ellipsis (`...`), numpy.newaxis (`None`) and integer or boolean arrays are valid indices
+
+>> 2022-09-12 13:39:13.364241 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: boolean index did not match indexed array along dimension 0; dimension is 5 but corresponding boolean dimension is 2000
+
+>> 2022-09-12 13:39:49.701420 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: boolean index did not match indexed array along dimension 0; dimension is 5 but corresponding boolean dimension is 2000
+
+>> 2022-09-12 13:41:51.612231 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: local variable 'i' referenced before assignment
+
+>> 2022-09-12 13:42:08.813801 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: 'int' object has no attribute 'shape'
+
+>> 2022-09-12 13:42:17.738173 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: boolean index did not match indexed array along dimension 0; dimension is 5 but corresponding boolean dimension is 2000
+
+>> 2022-09-12 13:49:21.773634 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: boolean index did not match indexed array along dimension 0; dimension is 5 but corresponding boolean dimension is 2000
+
+>> 2022-09-12 13:49:31.700577 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: boolean index did not match indexed array along dimension 0; dimension is 5 but corresponding boolean dimension is 2000
+
+>> 2022-09-12 13:50:31.679264 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: name 'Ei' is not defined
+
+>> 2022-09-12 13:50:45.741263 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: boolean index did not match indexed array along dimension 0; dimension is 5 but corresponding boolean dimension is 2000
+
+>> 2022-09-12 13:51:12.958767 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: name 'center_band' is not defined
+
+>> 2022-09-12 13:51:30.287875 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: name 'center_band' is not defined
+
+>> 2022-09-12 13:51:48.906065 >> Exception raised in >> __main__.DOSCAR.get_ocupacion(): >> exception: name 'asd' is not defined
+
+>> 2022-09-12 13:55:28.071257 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: name 'asd' is not defined
+
+>> 2022-09-12 14:01:03.126797 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: name 'asd' is not defined
+
+>> 2022-09-12 14:01:11.303211 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: name 'asd' is not defined
+
+>> 2022-09-12 14:01:31.625301 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: name 'center_band' is not defined
+
+>> 2022-09-12 14:01:44.133324 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: name 'center_band' is not defined
+
+>> 2022-09-12 14:04:36.405281 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: name 'center_band' is not defined
+
+>> 2022-09-12 14:04:41.193110 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: name 'center_band' is not defined
+
+>> 2022-09-12 14:07:35.579834 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: Replacement index 4 out of range for positional args tuple
+
+>> 2022-09-12 16:57:05.901128 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: unhashable type: 'list'
+
+>> 2022-09-12 16:57:43.636822 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: unhashable type: 'list'
+
+>> 2022-09-12 16:58:54.336246 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: unhashable type: 'list'
+
+>> 2022-09-12 17:01:05.003673 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: Replacement index 20 out of range for positional args tuple
+
+>> 2022-09-12 17:01:10.120624 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: Replacement index 20 out of range for positional args tuple
+
+>> 2022-09-12 17:01:14.205803 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: Replacement index 20 out of range for positional args tuple
+
+>> 2022-09-12 17:05:44.738624 >> Exception raised in >> __main__.DOSCAR.get_occupancy(): >> exception: invalid index to scalar variable.
+
+>> 2022-09-14 11:15:57.870150 >> Exception raised in >> __main__.DOSCAR.get_orbital_diagram(): >> exception: 'NoneType' object is not subscriptable
+
+>> 2022-09-14 11:19:09.175092 >> Exception raised in >> __main__.DOSCAR.get_orbital_diagram(): >> exception: string indices must be integers
+
+>> 2022-09-14 11:19:33.148841 >> Exception raised in >> __main__.DOSCAR.get_orbital_diagram(): >> exception: string indices must be integers
+
+>> 2022-09-14 11:19:43.559585 >> Exception raised in >> __main__.DOSCAR.get_orbital_diagram(): >> exception: string indices must be integers
+
+>> 2022-09-14 23:25:30.010988 >> Exception raised in >> __main__.DOSCAR.plot_orbital_diagram(): >> exception: [Errno 2] No such file or directory: 'orbital_diagram_/home/akaris/Documents/code/VASP/v4.6/files/PDOS/PC/FePC+Au/DOSCAR_0.png'
+
+>> 2022-09-14 23:27:10.809927 >> Exception raised in >> __main__.DOSCAR.plot_orbital_diagram(): >> exception: [Errno 2] No such file or directory: 'orbital_diagram_/home/akaris/Documents/code/VASP/v4.6/files/PDOS/PC/FePC+Au/DOSCAR_0.png'
+
+>> 2022-09-17 19:22:15.938797 >> Exception raised in >> __main__.SDF.load(): >> exception: can only concatenate str (not "int") to str
+
+>> 2022-09-17 19:22:41.293550 >> Exception raised in >> __main__.SDF.load(): >> exception: name 'atoms' is not defined
+
+>> 2022-09-17 19:40:52.042621 >> Exception raised in >> __main__.SDF.plot(): >> exception: 'SDF' object has no attribute 'get_ase'
+
+>> 2022-09-17 19:40:53.763004 >> Exception raised in >> __main__.SDF.plot(): >> exception: 'SDF' object has no attribute 'get_ase'
+
+>> 2022-09-17 19:43:45.385760 >> Exception raised in >> __main__.SDF.get_ase(): >> exception: Cell must be length 3 sequence, length 6 sequence or 3x3 matrix!
+
+>> 2022-09-17 19:43:45.385839 >> Exception raised in >> __main__.SDF.plot(): >> exception: Cell must be length 3 sequence, length 6 sequence or 3x3 matrix!
+
+>> 2022-09-17 19:45:50.397708 >> Exception raised in >> __main__.SDF.get_ase(): >> exception: Cell must be length 3 sequence, length 6 sequence or 3x3 matrix!
+
+>> 2022-09-17 19:45:50.397783 >> Exception raised in >> __main__.SDF.plot(): >> exception: Cell must be length 3 sequence, length 6 sequence or 3x3 matrix!
+
+>> 2022-09-17 19:50:31.309347 >> Exception raised in >> __main__.SDF.export_PDB(): >> exception: 'SDF' object has no attribute 'direct_to_cartesian'
+
+>> 2022-09-17 19:57:52.040767 >> Exception raised in >> __main__.SDF.operations(): >> exception: 'SDF' object has no attribute 'direct_to_cartesian'
+
+>> 2022-09-17 19:58:34.334439 >> Exception raised in >> __main__.SDF.operations(): >> exception: too many indices for array: array is 0-dimensional, but 1 were indexed
+
+>> 2022-09-17 19:59:15.267461 >> Exception raised in >> __main__.SDF.operations(): >> exception: too many indices for array: array is 0-dimensional, but 1 were indexed
+
+>> 2022-09-18 18:48:38.288069 >> Exception raised in >> __main__.SDF.export_PDB(): >> exception: 'NoneType' object is not iterable
+
+>> 2022-09-18 18:50:34.784890 >> Exception raised in >> __main__.SDF.export_PDB(): >> exception: 'NoneType' object is not iterable
+
+>> 2022-09-19 14:33:41.751069 >> Exception raised in >> __main__.PDB.READ(): >> exception: list index out of range
+
+>> 2022-09-19 14:33:45.772105 >> Exception raised in >> __main__.PDB.READ(): >> exception: list index out of range
+
+>> 2022-09-19 14:41:42.119614 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: export_PDB() got an unexpected keyword argument 'path'
+
+>> 2022-09-19 14:42:12.791648 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: 'PDB' object has no attribute 'direct_to_cartesian'
+
+>> 2022-09-19 14:44:04.791467 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: name 'asdf' is not defined
+
+>> 2022-09-19 14:44:14.443899 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: name 'asdfasdfdsf' is not defined
+
+>> 2022-09-19 14:44:36.559059 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: name 'asdfasdfdsf' is not defined
+
+>> 2022-09-19 14:44:59.399221 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: name 'asdfasdfdsf' is not defined
+
+>> 2022-09-19 14:45:12.166005 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: name 'asdfasdfdsf' is not defined
+
+>> 2022-09-19 14:45:15.055499 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: name 'asdfasdfdsf' is not defined
+
+>> 2022-09-19 14:45:36.474534 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: name 'asdfasdfdsf' is not defined
+
+>> 2022-09-19 14:45:39.373516 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: name 'asdfasdfdsf' is not defined
+
+>> 2022-09-19 14:55:15.097826 >> Exception raised in >> __main__.PDB.READ(): >> exception: invalid literal for int() with base 10: '   '
+
+>> 2022-09-19 14:55:59.391942 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: too many values to unpack (expected 2)
+
+>> 2022-09-19 14:56:23.704703 >> Exception raised in >> __main__.PDB.READ(): >> exception: invalid literal for int() with base 10: '   '
+
+>> 2022-09-19 14:58:54.399402 >> Exception raised in >> __main__.PDB.READ(): >> exception: invalid literal for int() with base 10: '   '
+
+>> 2022-09-19 15:07:08.861956 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: 'PDB' object has no attribute 'remark_dic'
+
+>> 2022-09-19 15:07:21.231540 >> Exception raised in >> __main__.PDB.READ(): >> exception: invalid literal for int() with base 10: '   '
+
+>> 2022-09-19 15:11:55.575050 >> Exception raised in >> __main__.PDB.READ(): >> exception: invalid literal for int() with base 10: '   '
+
+>> 2022-09-19 15:14:59.811061 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: name 'remark_str' is not defined
+
+>> 2022-09-19 15:15:06.879919 >> Exception raised in >> __main__.PDB.READ(): >> exception: list index out of range
+
+>> 2022-09-19 15:16:13.350331 >> Exception raised in >> __main__.PDB.READ(): >> exception: list index out of range
+
+>> 2022-09-19 15:16:58.848228 >> Exception raised in >> __main__.PDB.READ(): >> exception: list index out of range
+
+>> 2022-09-19 15:31:03.951904 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: must be real number, not str
+
+>> 2022-09-19 15:31:52.206534 >> Exception raised in >> __main__.PDB.READ(): >> exception: could not convert string to float: '.800  -'
+
+>> 2022-09-20 13:34:19.776247 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: [Errno 2] No such file or directory: '/home/akaris/Documents/code/VASP/v4.6/files/CHGCAR/CoFeTPyPCo-CoFeTPyP/CHGCAR'
+
+>> 2022-09-20 13:34:33.326781 >> Exception raised in >> __main__.CHGCAR.load_charge(): >> exception: [Errno 2] No such file or directory: '/home/akaris/Documents/code/VASP/v4.6/files/CHGCAR/CoFeTPyPCo-CoFeTPyP/CHGCAR_Co'
+
+>> 2022-09-21 10:18:31.269244 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: Each element of the 'contours' trait of a Contour instance must be -38977.199735 <= a number <= 0.58675173507, but a value of 67.924 <class 'float'> was specified.
+
+>> 2022-09-21 10:21:41.111048 >> Exception raised in >> __main__.CHGCAR.plot(): >> exception: Each element of the 'contours' trait of a Contour instance must be -38977.199735 <= a number <= 0.58675173507, but a value of 67.924 <class 'float'> was specified.
+
+>> 2022-09-22 14:18:51.735458 >> Exception raised in >> __main__.DATASET.get_set_list(): >> exception: 'NoneType' object has no attribute 'items'
+
+>> 2022-09-22 14:22:29.056885 >> Exception raised in >> __main__.DATASET.get_set_list(): >> exception: name 'sadfasdf' is not defined
+
+>> 2022-09-22 14:22:46.136264 >> Exception raised in >> __main__.DATASET.get_set_list(): >> exception: name 'sadfasdf' is not defined
+
+>> 2022-09-22 14:37:02.652952 >> Exception raised in >> __main__.DATASET.save_dataset(): >> exception: name 'name' is not defined
+
+>> 2022-09-22 14:44:53.356270 >> Exception raised in >> __main__.DATASET.save_dataset(): >> exception: not all arguments converted during string formatting
+
+>> 2022-09-22 14:45:09.623669 >> Exception raised in >> __main__.DATASET.save_dataset(): >> exception: not all arguments converted during string formatting
+
+>> 2022-09-22 14:45:14.935444 >> Exception raised in >> __main__.DATASET.save_dataset(): >> exception: not all arguments converted during string formatting
+
+>> 2022-09-22 14:45:23.598457 >> Exception raised in >> __main__.DATASET.save_dataset(): >> exception: not all arguments converted during string formatting
+
+>> 2022-09-22 14:45:33.002779 >> Exception raised in >> __main__.DATASET.save_dataset(): >> exception: not all arguments converted during string formatting
+
+>> 2022-09-22 14:45:34.243761 >> Exception raised in >> __main__.DATASET.save_dataset(): >> exception: not all arguments converted during string formatting
+
+>> 2022-09-24 20:11:39.138616 >> Exception raised in >> __main__.PDB.READ(): >> exception: could not convert string to float: '2.021 -'
+
+>> 2022-09-24 20:12:07.348979 >> Exception raised in >> __main__.PDB.READ(): >> exception: could not convert string to float: '2.021 -'
+

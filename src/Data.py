@@ -79,11 +79,18 @@ class Data(object):
 
 		self.analysis_results = {}
 
-	def load_system(self, name=None, path=None, files='all', v=True):
+	def load(self, data:dict=None, files:str='all', v:bool:True ) -> list:
+		return [self.load_system(name=name, path=path, files=files, v=v) for name, path in data.items() ]
+
+	def load_system_list(self, name_list=None, path_list=None, files='all', v=True) -> list:
+		return [ self.load_system(name=name, path=path, files=files, v=v) for name, path in zip(name_list, path_list) ]
+
+	def load_system(self, name:str=None, path:str=None, files='all', v:bool=True) -> object:
 		if name == None or not type(name) == str: 	name = 'no_name'
 		if not type(path) == str: path = self.path
 
 		system = System.System(name=name)
+
 		if type(files) == str and files == 'all':
 			system.load_all(path, v=v)
 		elif type(files) == list:

@@ -1,0 +1,324 @@
+
+
+
+
+# *** -TS1 ***
+# O : 0.053
+# OH : 0.537
+# OOH : 0.310
+
+
+# *** -TS2 ***
+# O : 0.056
+# OH : 0.258
+# OOH : 0.176
+
+# *** -TS LEE ***
+# O : 0.05
+# OH : 0.07
+# OOH : 0.16
+
+
+
+'''	
+a1 = np.load( file='data_vec.npy')
+a2 = np.load( file='data_vec1.npy')
+print(a1.shape) 
+print(a2.shape)
+b = np.concatenate( (a1, a2)) 
+print(b.shape)
+plt.plot(b[:, :100].transpose() )
+plt.figure(2), plt.plot(b[:, 100:].transpose() )
+plt.show() 
+'''
+
+'''
+s_set = Set()
+s_set.load_data( filename='DastaSet_MPC.pkl' )
+#s_set.load_data( filename='DastaSetSaved1.pkl' )
+#s_set.save_plot_orr(path='files/M1PC_210421/')
+features = s_set.extract_features(feature= {'relevant_distances':[], 'ORR' : ['overpotencial_ORR_4e', 'Eabs_OOH', 'Eabs_OH', 'Eabs_O', 'G1_ORR', 'G2_ORR', 'G3_ORR', 'G4_ORR'],}, )
+
+error
+
+
+
+s_set = Set()
+s_set.load_data( filename='FullDataSet_M1TPyP_structure.pkl' )
+'''
+
+'''
+							'd_xy(u)'	:	[9],
+							'd_xy(d)'	:	[10],
+							'd_xy'		:	[9, 10],
+							'd_yz(u)'	:	[11],
+							'd_yz(d)'	:	[12],
+							'd_yz'	 	:	[11, 12],
+							'd_z2-r2(u)':	[13],
+							'd_z2-r2(d)':	[14],
+							'd_z2-r2'	:	[13, 14],
+							'd_xz(u)'	:	[15],
+							'd_xz(d)'	:	[16],
+							'd_xz'		:	[15, 16],
+							'd_x2-y2(u)':	[17],
+							'd_x2-y2(d)':	[18],
+							'd_x2-y2'	:	[17, 18],
+'''
+
+'''
+features = s_set.extract_features(feature= { 
+					'PDOS': {	'config' : {'start':-3.0, 'end':3.0, 'point':600},
+								'atoms'  : {'name':['Fe', 'Co']},  
+								'orbital': [9,11,13,15,17]  },
+					'magnetization'	: {'atoms'  : {'name':['Fe', 'Co']},},
+					'charge'		: {'atoms'  : {'name':['Fe', 'Co']},}}, )
+
+for n in features:
+	try:
+		for m in features[n]['PDOS']:
+			try:
+				print( np.sum( np.array( m ), axis=0).shape )
+			except: pass
+
+			try:	
+				plt.plot( np.sum( np.array( m ), axis=0) )
+			except: pass
+		plt.show()
+	except: pass
+error
+
+
+
+
+
+
+
+
+
+
+
+features = s_set.extract_features(feature= { 
+					'ORR' : ['overpotencial_ORR_4e'],
+					'PDOS': {	'config' : {'start':-1.0, 'end':0.5, 'point':200},
+								'atoms'  : {'closest':'_*O'},  
+								'orbital': ['d_z2-r2(u)', 'd_z2-r2(d)',]  },
+					'magnetization'	: {'atoms'  : {'name':['Fe', 'Co']},},
+					'charge'		: {'atoms'  : {'name':['Fe', 'Co']},}}, )
+
+
+for n in features:
+	print(features[n], features[n]['ORR'])
+errorerror
+
+features_array = s_set.feature_dic2array(dictionary=features)
+
+for (key,value) in features_array[0].items():
+	print(key, value.shape)
+
+feature_final = features_array[0]['PDOS'][:, :200] + features_array[0]['PDOS'][:, 200:]
+
+# 01 
+#X_train, X_test, y_train, y_test = train_test_split(feature_final[features_array[0]['ORR']<2], features_array[0]['ORR'][features_array[0]['ORR']<2], random_state=100)
+# 02 
+X_train, X_test, y_train, y_test = train_test_split(feature_final[features_array[0]['ORR']<1], features_array[0]['ORR'][features_array[0]['ORR']<1], random_state=100)
+
+
+regr = MLPRegressor(activation='relu',hidden_layer_sizes=(200,200,200,200,200,200), max_iter=50000).fit(X_train, y_train)
+
+regr.predict(X_test)
+print(y_test - regr.predict(X_test))
+
+plt.plot( y_test[:], regr.predict(X_test)[:], 'o', c='r')
+plt.plot( y_train[:], regr.predict(X_train)[:], 'o', c='b')
+plt.show()
+
+'''
+'''
+ [0.0] :: CoPC_gamma_5BE_D3 :: ORR :: overpotencial_ORR_4e 0.5330381999999041 
+ [0.0] :: CoPC_gamma_5BE_D3 :: ORR :: Eabs_OOH 9.417032533333355 
+ [0.0] :: CoPC_gamma_5BE_D3 :: ORR :: Eabs_OH 0.9525174000000405 
+ [0.0] :: CoPC_gamma_5BE_D3 :: ORR :: Eabs_O 2.879920800000084 
+ [0.0] :: CoPC_gamma_5BE_D3 :: ORR :: G1_ORR 0.5330381999999041 
+ [0.0] :: CoPC_gamma_5BE_D3 :: ORR :: G2_ORR -0.0731174000000614 
+ [0.0] :: CoPC_gamma_5BE_D3 :: ORR :: G3_ORR -0.34740340000013603 
+ [0.0] :: CoPC_gamma_5BE_D3 :: ORR :: G4_ORR -0.11251739999994825 
+
+
+ 
+error
+for (key,value) in a.items():
+	if sum([ n in value for n in ['PDOS', 'magnetization', 'charge', 'ORR'] ]) == 4:
+		print( key, value )
+
+
+# --- eg --- #
+if 2 == 1:
+	s_set = Set()
+	s_set.load_data( filename='DastaSetSaved2.pkl' )
+	count = 0
+
+	points = 100
+	data_list = []
+	data_list1 = []
+	for (key,value) in a.items():
+		if var == 1:
+			asdf = value.ORR()
+			try:		data_list1.append( asdf.ORR['overpotencial_ORR_4e'] )
+			except: 	pass
+
+		for (key1,value1) in value.system.items():
+			var = 0
+			if value1.DOSCAR != None and 'PDOS' in key1:
+				var = 1
+				count += 1
+				print(key, key1)
+				pos = value1.POSCAR.get_postion('Fe') + value1.POSCAR.get_postion('Co')
+				value1.DOSCAR.plot( ion=pos, orbital=['d'] )
+				a = value1.DOSCAR.cut( ion=0, orbital=18, start=-1.0, end=1.0, point=points, )
+				b = value1.OUTCAR.get_magnetization( pos )
+				b1 = value1.OUTCAR.get_charge( pos )
+				vec = np.zeros( (points+8,) )
+				vec[:points] = a
+				vec[points:points+4] = b
+				vec[points+4:points+8] = b1
+				data_list.append(vec)
+				
+
+	print( len(data_list1), len(data_list) )
+		#except: pass
+	error
+
+	#np.save( file='data_vec', arr=np.array(data_list) )
+
+	# --- eg --- #
+	s_set1 = Set()
+	s_set1.load_data( filename='DastaSetSaved1.pkl' )
+	for (key,value) in s_set1.set.items():
+		for (key1,value1) in value.system.items():
+			if value1.DOSCAR != None and 'PDOS' in key1:
+				count += 1
+				print(key, key1)
+				pos = value1.POSCAR.get_postion('Fe') + value1.POSCAR.get_postion('Co')
+				print(pos)
+				if len(pos) > 1:
+					pos = [pos[-1]]
+
+				value1.DOSCAR.plot( ion=pos, orbital=['d'] )
+				a = value1.DOSCAR.cut( ion=0, orbital=18, start=-1.0, end=1.0, point=points, )
+				b = value1.OUTCAR.get_magnetization( pos )
+				b1 = value1.OUTCAR.get_charge( pos )
+				vec = np.zeros( (points+8,) )
+				vec[:points] = a
+				print(b)
+				vec[points:points+4] = b
+				vec[points+4:points+8] = b1
+				data_list.append(vec)
+		asdf = value.ORR()
+		data_list1.append( asdf.ORR['overpotencial_ORR_4e'] )
+
+	np.save( file='data_vec1', arr=np.array(data_list) )
+	data_list = np.array(data_list)
+	print(data_list.shape)
+
+print(count)
+
+s_set = Set()
+s_set.load_data( filename='DastaSetSaved2.pkl' )
+a = s_set.extract_features(feature= { 
+					'ORR' : ['overpotencial_ORR_4e'],
+					'PDOS': {	'config' : {'start':-1.0, 'end':1.0, 'point':500},
+								'atoms'  : {'closest':'_O*'}, 
+								'orbital': ['d']  },
+					'magnetization'	: {'atoms'  : {'closest':'_O*'} },
+					'charge'		: {'atoms'  : {'closest':'_O*'} }
+									}, )
+
+print(a)
+
+#	try:	
+#		for (key1,value1) in value.system.items():
+#			print( key1 )
+#	except: pass
+
+error
+
+for (key,value) in s_set.set.items():
+	
+	try:	
+		value.ORR()
+		if type(value.ORR_analysis.ORR['4e_ORR']) is np.ndarray:
+			name = list(filter(lambda x: (x[-1:] == '*'), value.system))[0]
+			print(name)
+			fig, ax = plt.subplots(figsize=(10.0, 10.0), dpi=200) 
+			
+			value.plot( data=value.ORR_analysis.ORR['4e_ORR'], figure={'fig':fig, 'ax':ax}, save={'name':name, 'folder':'files/M1PC'}, plot_limits={'Y':[-1.3, 1.2]})
+			value.ORR(U=0.402)
+
+			color=	{'h_lines':'#00FF00', 'v_lines':'#00FF00', 
+					'x_text':'#00FF00', 'y_text':'#00FF00', } 
+
+			value.plot( data=value.ORR_analysis.ORR['4e_ORR']+1.608, v_lines={'color':'#00FF00'}, color=color, figure={'fig':fig, 'ax':ax}, 
+							save={'name':name, 'folder':'files/M1PC'}, plot_limits={'Y':[-1.3, 1.8]})
+					
+			for (key1,value1) in value.system.items():
+				print( value1.OSZICAR.ionic_step[-1] )
+
+	except: print('ERROR')
+	
+error
+
+for (key,value) in s_set.set.items():
+	var = ''
+	var += key 
+	value.ORR()
+	try:	
+		var += '&'+str(value.ORR.ORR['overpotencial_ORR_4e'])
+	except:
+		pass
+	var += r'\\'
+	print(var)
+error
+s_set.summary()
+
+
+
+error
+s_set.save_plot()
+
+'''
+
+'''
+
+k = 8.6173324*10**-5 # eV/K
+T = 300
+kT = k*T
+h = 4.136123689*10**-15 # eV*s
+V = np.array([8.06, 22.10, 38.61, 61.40, 61.85, 116.60, 156.39, 242.98, 685.83])*0.658212174*0.24179883*10**12
+V = np.array([24.89, 60.54, 178.11])*0.658212174*0.24179883*10**12
+V = np.array([7.97, 9.82, 15.08, 20.22, 36.64, 106.00])*0.658212174*0.24179883*10**12
+TS = 0
+print(k*T)
+print(h/(k*T), 111111)
+operatoin = ''
+for v in V:
+	#print('({0:.2e}eV/K'.format(k) )
+	operatoin += '({0:.2e}eV/K . {1:.2e}K log_e( 1 - e^(-{2:.2e}eV/s . {3:.2e}s^-1 / {0:.2e}eV/K{1:.2e}K) ) - -{2:.2e}eV/s . {3:.2e}s^-1) / (e^(-{2:.2e}eV/s . {3:.2e}s^-1 / {0:.2e}eV/K{1:.2e}K)-1)  '.format(k, T, h, v)
+	print('num:', kT*np.log( 1 - np.e**(-h*v/kT) ) - h*v )
+	print('deno:',h/kT, (np.e**( h*v/kT)-1) )
+	print('total: ', (kT*np.log( 1 - np.e**(-h*v/kT) ) - h*v) / (np.e**(h*v/kT)-1) )
+	TS += (kT*np.log( 1 - np.e**(-h*v/kT) ) - h*v) / (np.e**(h*v/kT)-1)
+print(operatoin , TS)
+
+k = 8.6173324*10**-5 eV/K
+T = 300 K
+h = 4.136123689*10**-15 eV*s
+V = {24.89, 60.54, 178.11}/(2*pi)*10**12
+
+TS += (kT*np.log( 1 - np.e**(-h*v/kT) ) - h*v) / (np.e**(h*v/kT)-1) 
+
+# O : 0.053
+# OH : 0.537
+# OOH : 0.310
+
+'''
+

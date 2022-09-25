@@ -65,11 +65,11 @@ except:
 
 class System(object):
 	def __init__(self, 
-					name=None	, description=None	,
-					POSCAR=None	, INCAR=None		, CONTCAR=None	, EIGENVAL=None,
-					DOSCAR=None	, PROCAR=None		, OSZICAR=None 	, PARCHGCAR=None,
-					CHGCAR=None	, OUTCAR=None		, POTCAR=None,
-					ZPE=None	, S=None):
+					name  =None	, description	=None	,
+					POSCAR=None	, INCAR  		=None	, CONTCAR=None	, EIGENVAL =None,
+					DOSCAR=None	, PROCAR  		=None	, OSZICAR=None 	, PARCHGCAR=None,
+					CHGCAR=None	, OUTCAR  		=None	, POTCAR =None,
+					ZPE   =None	, S     		=None):
 		
 		self.name = name
 		self.description = description
@@ -90,16 +90,17 @@ class System(object):
 		self.S      = S     # Entropy #
 
 		self.white_list = [
-							'POSCAR', 'INCAR', 'CONTCAR', 'CHGCAR', 'DOSCAR', 'POTCAR',
-							'PROCAR', 'EIGENVAL', 'PARCHGCAR', 'OSZICAR', 'OUTCAR']
+							'POSCAR', 'INCAR'   , 'CONTCAR'  , 'CHGCAR' , 'DOSCAR', 'POTCAR',
+							'PROCAR', 'EIGENVAL', 'PARCHGCAR', 'OSZICAR', 'OUTCAR'
+							]
 
 		self.loaded = []
 		self.loaded_dict = {
-			'POSCAR':self.POSCAR,	'CONTCAR':self.CONTCAR,
-			'INCAR':self.INCAR,		'OSZICAR':self.OSZICAR,
-			'OUTCAR':self.OUTCAR,	'EIGENVAL':self.EIGENVAL,
-			'DOSCAR':self.DOSCAR,	'PROCAR':self.PROCAR,
-		}
+			'POSCAR': self.POSCAR,	'CONTCAR' : self.CONTCAR ,
+			'INCAR' : self.INCAR ,	'OSZICAR' : self.OSZICAR ,
+			'OUTCAR': self.OUTCAR,	'EIGENVAL': self.EIGENVAL,
+			'DOSCAR': self.DOSCAR,	'PROCAR'  : self.PROCAR  ,
+							}
 
 	def load(self, path=None, file='POSCAR', v=True):
 		# LOAD {file} from {path}
@@ -161,7 +162,7 @@ class System(object):
 		def load_DOSCAR(path, v=True):
 			try:
 				doscar = DOSCAR.DOSCAR()
-				#doscar.load(file_name = path) !!!!!!!!!!!!!!!!!!!!!!!!
+				doscar.load(file_name = path) # !!!!!!!!!!!!!!!!!!!!!!!!
 				self.DOSCAR = doscar
 				self.loaded.append('DOSCAR')
 			except:
@@ -212,15 +213,11 @@ class System(object):
 		#for ld in self.loaded:	toprint += '\t{};'.format(ld)
 		#print(toprint)
 		
-		if 'CONTCAR' in self.loaded and self.CONTCAR == object:	self.CONTCAR.summary() 
-		if 'POTCAR' in self.loaded 	and self.POTCAR == object:	self.POTCAR.summary() 
-		if 'INCAR' in self.loaded 	and self.INCAR == object:	self.INCAR.summary() 
-		if 'OSZICAR' in self.loaded and self.OSZICAR == object:	self.OSZICAR.summary() 
-		if 'OUTCAR' in self.loaded 	and self.OUTCAR == object:	self.OUTCAR.summary() 
+		if 'CONTCAR' in self.loaded     and self.CONTCAR == object:	self.CONTCAR.summary() 
+		if 'POTCAR'  in self.loaded 	and self.POTCAR  == object:	self.POTCAR.summary() 
+		if 'INCAR'   in self.loaded 	and self.INCAR   == object:	self.INCAR.summary() 
+		if 'OSZICAR' in self.loaded     and self.OSZICAR == object:	self.OSZICAR.summary() 
+		if 'OUTCAR'  in self.loaded 	and self.OUTCAR  == object:	self.OUTCAR.summary() 
 
 		return	None
-
-
-
-
 

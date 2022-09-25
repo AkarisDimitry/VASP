@@ -79,9 +79,9 @@ class OUTCAR(object):
 
 
 	def load(self, file_name=None):
-		if file_name != None: self.file_name = file_name
+		file_name = file_name if not file_name is None else self.file_name
 
-		try: 	f = open(self.file_name,'r')
+		try: 	f = open(file_name,'r')
 		except: 	print('ERROR :: OUTCAR.load() :: missing file {}'.format(file_name) ); 	return
 
 		self.POTCAR = []# POTCAR information 
@@ -200,7 +200,11 @@ class OUTCAR(object):
 		self.atoms_names_list 	= self.atoms_names_list
 		self.Edisp 				= np.array(self.Edisp)
 
-		#self.summary()
+		self.file_name 			= file_name
+		
+		# close the file 
+		try: 		f.close()
+		except: 	print('ERROR :: OUTCAR.load() :: can NOT close file {}'.format(file_name) ); 	return
 
 	def save_trajectory_step(self, atoms_position=None, atoms_names_list=None, atoms_names_ID=None, 
 									file_name=None, append_data=True, traj_step=None, traj_time=None,save=True):
@@ -341,6 +345,15 @@ class OUTCAR(object):
 
 	def get_dipolarmoment(self, atoms_list=None, step=None):
 		pass
+
+	def get_position(self, ion, ):
+		# gives all the position of ion in self.atoms_names_list  
+		# ------------------------------------------------------
+		# ion  ::	STR 	:: ion name str 
+		if type(self.atoms_names_list) == list:
+			return list(filter(lambda x: (x >= 0), [ i if n == ion else -1 for i, n in enumerate( self.atoms_names_list ) ] ))
+		else:
+			return []
 
 	def get_first_neighbour_distance_matrix(self, atoms_position=None, cell=None, save=True ):
 

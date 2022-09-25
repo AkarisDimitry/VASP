@@ -71,10 +71,135 @@ except:
 
 try:	from src import ORR
 except:	
-	try: from ORR import ORR
+	try: from ORR import OxigenReaction
 	except: print('WARNING :: Set.import_libraries() :: can not import POSCAR ')
 
+#########################################################
+# ORR eg || FePC/FePCAu/FePCBzAu  CoPC/CoPCAu/CoPCBzAu  #
+#########################################################
+def ORR_PC_plot():
+	# ============== CoPC  ============== # 
+	orr = OxigenReaction() # ========= CoPC FREE (VOID) ========= # 
+	orr.calculate(sys={'E':-422.133,'ZPE':0.0,'S':0.0}, sys_O={'E':-426.500,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-432.0393,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-436.660,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('CoPC FREE :: Ea={:.3}'.format(-422.133+421.979))
+	orr.summarise_steps()
+	orr.summarise_absortion()
 
+	# ============== CoPC + 5Bz + Au ============== # 
+	orr = OxigenReaction() # ========= CoPC + 5Bz + Au (Au site) ========= # 
+	orr.calculate(sys={'E':-1120.709,'ZPE':0.0,'S':0.0}, sys_O={'E':-1125.299,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-1130.573,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-1135.187,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('CoPC + 5Bz + Au (Au site) :: Ea={:.3}'.format(-1120.709+421.979+696.631) )
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	orr = OxigenReaction() # ========= CoPC + 5Bz + Au (C site) ========= # 
+	orr.calculate(sys={'E':-1120.579,'ZPE':0.0,'S':0.0}, sys_O={'E':-1124.962,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-1130.464,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-1135.090,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('CoPC + 5Bz + Au (C site) :: Ea={:.3}'.format(-1120.579+421.979+696.631) )
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	orr = OxigenReaction() # ========= CoPC + 5Bz + Au (Bz site) ========= # 
+	orr.calculate(sys={'E':-1120.389,'ZPE':0.0,'S':0.0}, sys_O={'E':-1125.100,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-1130.270,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-1134.892,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('CoPC + 5Bz + Au (Bz site) :: Ea={:.3}'.format(-1120.389+421.979+696.631) )
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	# ============== CoPC + Au ============== # 
+	orr = OxigenReaction() # ========= CoPC + Au (HOLLOW site) ========= #
+	orr.calculate(sys={'E':-739.3821,'ZPE':0.0,'S':0.0}, sys_O={'E':-743.649,'ZPE':0.07,'S':0.0}, 
+				sys_OH={'E':-749.105,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-753.758,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
+	orr.plot_integrated('CoPC + Au (HOLLOW site) :: Ea={:.3}'.format(-739.3821+421.979+312.16) )
+	orr.summarise_steps()
+
+	orr = OxigenReaction() # ========= CoPC + Au (TOP site) ========= #
+	orr.calculate(sys={'E':-739.1643,'ZPE':0.0,'S':0.0}, sys_O={'E':-743.473,'ZPE':0.07,'S':0.0}, 
+				sys_OH={'E':-748.899,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-753.566,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
+	orr.plot_integrated('CoPC + Au ((TOP site) :: Ea={:.3}'.format(-739.1643+421.979+312.16) )
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	orr = OxigenReaction() # ========= CoPC + Au (BRIDGE site) ========= #
+	orr.calculate(sys={'E':-739.336,'ZPE':0.0,'S':0.0}, sys_O={'E':-743.624,'ZPE':0.07,'S':0.0}, 
+				sys_OH={'E':-749.081,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-753.727,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
+	orr.plot_integrated('CoPC + Au (BRIDGE site) :: Ea={:.3}'.format(-739.336+421.979+312.16) )
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	orr.summarise_absortion()
+
+	plt.show()
+
+
+	# ============== FePC + Bz + Au ============== # 
+	orr = OxigenReaction() # ========= FePC + 5Bz + Au (Bz site) ========= # 
+	orr.calculate(sys={'E':-1121.632,'ZPE':0.0,'S':0.0}, sys_O={'E':-1127.478,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-1131.878,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-1136.452,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+				 			H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FePC + 5Bz + Au (Bz site) :: Ea={:.3}'.format(-1121.632+423.126+696.631) )
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	orr = OxigenReaction() # ========= FePC + 5Bz + Au (C site) ========= # 
+	orr.calculate(sys={'E':-1121.803,'ZPE':0.0,'S':0.0}, sys_O={'E':-1127.666,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-1132.0515,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-1136.632,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+				 			H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FePC + 5Bz + Au (C site) :: Ea={:.3}'.format(-1121.803+423.126+696.631) )
+	orr.summarise_steps()
+	orr.summarise_absortion()
+	orr = OxigenReaction() # ========= FePC + 5Bz + Au (Au site) ========= # 
+	orr.calculate(sys={'E':-1121.9378,'ZPE':0.0,'S':0.0}, sys_O={'E':-1127.7830,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-1132.2013,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-1136.7592,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+				 			H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FePC + 5Bz + Au (Au site) :: Ea={:.3}'.format(-1121.9378+423.126+696.631) )
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	# ============== FePC + Au ============== # 
+	orr = OxigenReaction() # ========= FePC + Au (HOLLOW site) ========= #
+	orr.calculate(sys={'E':-740.5996,'ZPE':0.0,'S':0.0}, sys_O={'E':-746.2118,'ZPE':0.07,'S':0.0}, 
+				  sys_OH={'E':-750.7263,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-755.3344,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
+	orr.plot_integrated('FePC + Au (HOLLOW site) :: Ea={:.3}'.format(-740.5996+423.126+312.16) )
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	orr = OxigenReaction() # ========= FePC + Au (BRIDGE site) ========= #
+	orr.calculate(sys={'E':-740.5352,'ZPE':0.0,'S':0.0}, sys_O={'E':-746.1820,'ZPE':0.07,'S':0.0}, 
+				  sys_OH={'E':-750.698,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-755.3063,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
+	orr.plot_integrated('FePC + Au (BRIDGE site) :: Ea={:.3}'.format(-740.5352+423.126+312.16) )
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	orr = OxigenReaction() # ========= FePC + Au (TOP site) ========= #
+	orr.calculate(sys={'E':-740.3873,'ZPE':0.0,'S':0.0}, sys_O={'E':-746.022,'ZPE':0.07,'S':0.0}, 
+				  sys_OH={'E':-750.495,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-755.306,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
+	orr.plot_integrated( 'FePC + Au (TOP site) :: Ea={:.3}'.format(-740.387+423.126+312.16) )
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	# ============== FePC ============== # 
+	orr = OxigenReaction() # ========= FePC + Free (VOID) ========= #
+	orr.calculate(sys={'E':-423.2843,'ZPE':0.0,'S':0.0}, sys_O={'E':-429.238,'ZPE':0.07,'S':0.0}, 
+				  sys_OH={'E':-433.647,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-438.148,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+				 			 H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0*4)
+	orr.plot_integrated('FePC + Free (VOID) :: Ec=-0.158')
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+	plt.show()
 
 ######################################
 # DOSCAR eg || READ and plot DOSCAR  #
@@ -82,15 +207,45 @@ except:
 def DOSCAR_plot():
 	# buscamos comparar la E de interaccion M-O en terminos de las PDOS para los
 	# sistemas FePC+Au y CoPC+Au. 
-	doscar = DOSCAR()
+	doscar_Co = DOSCAR()
+	doscar_Fe = DOSCAR()
 	# --- CoPC --- # LOAD files
-	doscar.load( './files/PDOS/CoPC+O+Au/DOSCAR' )
+	doscar_Co.load( '/home/akaris/Documents/code/VASP/v4.6/files/PDOS/PC/CoPC+Au/DOSCAR' )
+	doscar_Fe.load( '/home/akaris/Documents/code/VASP/v4.6/files/PDOS/PC/FePC+Au/DOSCAR' )
 
 	# ** SIGMA ** # PLOT
-	# - Co - #
-	fig = plt.figure(1)
-	doscar.plot(ion=[0], orbital=['d_z2-r2',], figure=fig, color=0, 
+	fig, ax = plt.subplots()
+	doscar_Fe.plot(ion=[0], orbital=['d_z2-r2',], color=(0.8,0.3,0.3), ax=ax,
 						 sum_plot=True, add_fermi=True, legend_plot=True) # sum_plot=True,
+	doscar_Co.plot(ion=[0], orbital=['d_z2-r2',], color=(0.3,0.8,0.8), ax=ax,
+						 sum_plot=True, add_fermi=True, legend_plot=True) # sum_plot=True,
+
+	fig, ax = plt.subplots()
+	doscar_Fe.plot(ion=[0], orbital=['d_x2-y2',], color=(0.8,0.3,0.3), ax=ax,
+						 sum_plot=True, add_fermi=True, legend_plot=True) # sum_plot=True,
+	doscar_Co.plot(ion=[0], orbital=['d_x2-y2',], color=(0.3,0.8,0.8), ax=ax,
+						 sum_plot=True, add_fermi=True, legend_plot=True) # sum_plot=True,
+
+	fig, ax = plt.subplots()
+	doscar_Fe.plot(ion=[0], orbital=['d_xz',], color=(0.8,0.3,0.3), ax=ax,
+						 sum_plot=True, add_fermi=True, legend_plot=True) # sum_plot=True,
+	doscar_Co.plot(ion=[0], orbital=['d_xz',], color=(0.3,0.8,0.8), ax=ax,
+						 sum_plot=True, add_fermi=True, legend_plot=True) # sum_plot=True,
+
+	fig, ax = plt.subplots()
+	doscar_Fe.plot(ion=[0], orbital=['d_xy',], color=(0.8,0.3,0.3), ax=ax,
+						 sum_plot=True, add_fermi=True, legend_plot=True) # sum_plot=True,
+	doscar_Co.plot(ion=[0], orbital=['d_xy',], color=(0.3,0.8,0.8), ax=ax,
+						 sum_plot=True, add_fermi=True, legend_plot=True) # sum_plot=True,
+
+	fig, ax = plt.subplots()
+	doscar_Fe.plot(ion=[0], orbital=['d_yz',], color=(0.8,0.3,0.3), ax=ax,
+						 sum_plot=True, add_fermi=True, legend_plot=True) # sum_plot=True,
+	doscar_Co.plot(ion=[0], orbital=['d_yz',], color=(0.3,0.8,0.8), ax=ax,
+						 sum_plot=True, add_fermi=True, legend_plot=True) # sum_plot=True,
+
+	plt.show()
+
 	# ** PI ** # PLOT
 	# - Co - #
 	fig = plt.figure(1)
@@ -100,6 +255,8 @@ def DOSCAR_plot():
 	# ** ** SHOW
 	plt.show()
 
+DOSCAR_plot()
+asd
 #########################################
 # BAND plot eg || READ and plot PROCAR  #
 #########################################
@@ -114,6 +271,22 @@ def BAND_plot(file):
 	PC.plot()
 	plt.show()
 	PC.summary()
+
+#########################################
+# Read - EDIT - export POSCAR/CONTCAR   #
+#########################################
+def POSCAR2PDB(file):
+	# Read POSCAR  -->  Set molecule to cell  -->  replicate cell  -->  SAVE as PDB and export as POSCAR
+	pos = POSCAR()
+	pos.load(file_name = '/home/akaris/Documents/code/VASP/v4.2/files/dataset/CoFeTPyP/Cellsize/FeTPyP/POSCAR/FePTyP_11_1295_PROPELER')
+
+	pos.atoms = pos.get_molecule()
+
+	pos.operations( operation={'name':'replicate', 'replicate':[1,1,1]}, save=True )
+	pos.export_PDB('/home/akaris/Documents/code/Blender/VASP_BLENDER/vasp-files/FeTPyP/FePTyP_11_1295_PROPELER')
+	pos.export('/home/akaris/Documents/code/Blender/VASP_BLENDER/vasp-files/FeTPyP/POSCAR')
+
+	return pos
 
 #########################################
 # Scale relation || data analysis	    #
@@ -346,280 +519,3 @@ def ORR_TPyP_analysis(load, save ):
 	#plt.ylim([0,7])
 	#plt.xlim([-1,2.5])
 
-load = {'file':'pkl', 'path':'../files/dataset/MeTPyP/DastaSet_TPyP.pkl',}
-save = {'state':True, 'path':'../files/dataset/MeTPyP/ORR_only'}
-
-# === load from pkl and save to npy === #
-#ORR_TPyP_analysis(	load = {'file':'pkl', 'path':'../files/dataset/MeTPyP', 		'name':'DastaSet_TPyP.pkl'},
-#					save = {'state':True, 'path':'../files/dataset/MeTPyP/ORR_only','name':'ORR_data'} )
-# === load from npy === #
-ORR_TPyP_analysis(	load = {'file':'npy', 'path':'../files/dataset/MeTPyP/ORR_only', 		'name':'ORR_data'},
-					save = {'state':False,} )
-error
-# === load from npy === #
-ORR_TPyP_analysis(	load = {'file':'npy', 'path':'../files/dataset/Metales', 		'name':'NNy_metales'},
-					save = {'state':False,} )
-error
-
-
-#########################################
-# SET plk load || load 				    #
-#########################################
-def load_features(file):
-	dataset = Set()
-	dataset.load_data( filename=file)
-	save_path = '/home/akaris/Documents/code/VASP/v3.0/files/ORR/summary070921'
-	#dataset.summary(xml=True, path=save_path)
-	#error
-	#dataset.save_plot_orr( path=save_path )
-	features = dataset.extract_features(feature= { 
-						#'PDOS': {	'config' : {'start':-10.0, 'end':5.0, 'point':1000},
-						#			'atoms'  : {'name':['Fe', 'Co', 'Cu', 'Mg']},  
-						#			'orbital': [9,10,11,12,13,14,15,16,17,18,]  }, # [9,10,11,12,13,14,15,16,17,18]
-						'magnetization'	: {'atoms'  : {'name':['Fe', 'Co', 'Cu', 'Mg']},},
-						'charge'		: {'atoms'  : {'name':['Fe', 'Co', 'Cu', 'Mg']},},
-						'ORR' : [	'overpotencial_ORR_4e', 'Gabs_OOH', 'Eabs_OOH', 'Gabs_OH', 
-									'Eabs_OH', 'Gabs_O', 'Eabs_O', 'G1_ORR', 'G2_ORR', 'G3_ORR', 'G4_ORR', 'limiting_step_ORR'],
-						}, v=True )
-
-	NNx = []
-	NNy = []
-	NNz = []
-	names = []
-	print(features)
-	for n in features:
-		for m in features[n]:
-			NNy.append(  features[n]['ORR'] )
-			names.append( n )
-			if 'PDOS12312' in m:
-				try:
-					if type(features[n]['ORR'][0]) != type(None) and type(np.reshape(features[n][m]['PDOS'], (1000*10))) != type(None):
-						NNx.append(  np.concatenate((features[n][m]['magnetization'][0], features[n][m]['charge'][0][0,:], np.reshape(features[n][m]['PDOS'], (1000*10)))) )
-						NNy.append( features[n]['ORR'] )
-						names.append( n )
-				except: pass
-
-
-	#random.shuffle(NNx)
-	#random.shuffle(NNy)
-	return NNx, NNy, NNz, names
-
-
-# ========== set path ========== #
-path_TPyP = 	'../files/dataset/MeTPyP/DastaSet_TPyP.pkl'
-path_metales = 	'../files/dataset/Metales/metales.pkl'
-path_PC = 		'../files/dataset/MePC/M1PC.pkl'
-
-'''
-# ========== Load pkl selected features and save npy data ========== #
-NNx, NNy, NNz, names = load_features(path_metales)
-np.save('../files/dataset/Metales/NNx_metales', NNx)
-np.save('../files/dataset/Metales/NNy_metales', NNy)
-np.save('../files/dataset/Metales/NNz_metales', NNz)
-f = open('../files/dataset/Metales/names_metales', 'w')
-for n in names: 	f.write(n+'\n')
-f.close()
-
-NNx, NNy, NNz, names = load_features(path_TPyP)
-np.save('../files/dataset/MeTPyP/NNx_TPyP', NNx)
-np.save('../files/dataset/MeTPyP/NNy_TPyP', NNy)
-np.save('../files/dataset/MeTPyP/NNz_TPyP', NNz)
-f = open('../files/dataset/MeTPyP/names_TPyP', 'w')
-for n in names: 	f.write(n+'\n')
-f.close()
-
-NNx, NNy, NNz, names = load_features(path_PC)
-np.save('../files/dataset/MePC/NNx_PC', NNx)
-np.save('../files/dataset/MePC/NNy_PC', NNy)
-np.save('../files/dataset/MePC/NNz_PC', NNz)
-f = open('../files/dataset/MePC/names_PC', 'w')
-for n in names: 	f.write(n+'\n')
-f.close()
-'''
-
-
-# ========== Load npy data ========== #
-NNx_metales = 	np.load('../files/dataset/Metales/NNx_metales.npy', )
-NNy_metales = 	np.load('../files/dataset/Metales/NNy_metales.npy', )
-NNz_metales = 	np.load('../files/dataset/Metales/NNz_metales.npy', )
-f = 			   open('../files/dataset/Metales/names_metales', 'r')
-names_metales = [ n[:-1] for n in f ]
-f.close()
-
-'''
-NNx_TPyP = 		np.load('../files/dataset/MeTPyP/NNx_TPyP.npy', )
-NNy_TPyP = 		np.load('../files/dataset/MeTPyP/NNy_TPyP.npy', )
-NNz_TPyP = 		np.load('../files/dataset/MeTPyP/NNz_TPyP.npy', )
-f = 			   open('../files/dataset/MeTPyP/names_TPyP', 'r')
-names_TPyP = [ n[:-1] for n in f ]
-f.close()
-
-NNx_PC = 		np.load('../files/dataset/MePC/NNx_PC.npy', )
-NNy_PC =		np.load('../files/dataset/MePC/NNy_PC.npy', )
-NNz_PC =		np.load('../files/dataset/MePC/NNz_PC.npy', )
-f = 			   open('../files/dataset/MePC/names_PC', 'r')
-names_PC = [ n[:-1] for n in f ]
-f.close()
-'''
-
-# ========== Reshape data ========== #
-#NNx = np.concatenate( (NNx_TPyP, NNx_PC, NNx_metales ) )
-#NNy = np.concatenate( (NNy_TPyP, NNy_PC, NNy_metales ) )
-NNx = NNx_metales
-NNy = NNy_metales
-
-NN_names = np.array(names_metales)
-
-print(NNy.shape, NNx.shape, NN_names.shape)
-NNx = NNx[:,4000:6000]
-#NNx = NNx[:,4000:5000] - NNx[:,5000:6000]
-NNy = NNy[:,:2]
-
-NN_names = NN_names[ NNy[:,0]<2 ]
-NNx = NNx[ NNy[:,0]<2,: ]
-NNy = NNy[ NNy[:,0]<2,: ]
-
-'''
-# ========== Manifold ========== #
-n_neighbors = 3
-n_components = 2
-LLE = manifold.LocallyLinearEmbedding(n_neighbors, n_components, eigen_solver='auto',method='modified')
-LLE = manifold.TSNE(n_components=n_components, init='pca', random_state=0)
-Y = LLE.fit_transform(NNx)
-colores = [ [1,0,0] if 'Fe' in n else [0,0,1] if 'Co' in n  else  [0,0,1] if 'Ni' in n else [0,1,0] for n in NN_names ]
-plt.scatter(Y[:, 0], Y[:, 1], color=colores, cmap=plt.cm.Spectral)
-plt.show()
-'''
-
-# ========== shuffle split ========== #
-#X_train, X_test, y_train, y_test = train_test_split(NNx, NNy, test_size=0.05)
-sss = ShuffleSplit(n_splits=1, test_size=0.2)
-sss.get_n_splits(NNx, NNy)
-train_index, test_index = next(sss.split(NNx, NNy)) 
-
-X_train, X_test = NNx[train_index], NNx[test_index] 
-y_train, y_test = NNy[train_index], NNy[test_index]
-
-# ========== SELECT DATA ========== #
-#def cond(n): return 'Fe' in n or 'Ni' in n or 'Co' in n   or 'Cu' in n   or 'Mn' in n  or 'Cr' in n 
-def cond(n):  return 'Co' in n or 'Ni' in n  or 'Cu' in n  or 'Mn' in n or 'Fe' in n or 'Rh' in n or 'Fe' in n 
-def cond(n):  return ('TPyP' in n and 'Ni' in n) or ('TPyP' in n and 'Mn' in n) or ('TPyP' in n and 'Cr' in n) or ('TPyP' in n and 'Cu' in n)  or ('Ru' in n and 'Pc' in n)
-def cond(n):  return ('TPyP' in n and 'Ni' in n) or ('TPyP' in n and 'Co' in n) or ('TPyP' in n and 'Cu' in n) 
-
-def cond_train(n):  return  not ('Pc' in n  or 'Fe' in n or 'Ni' in n or 'Mg' in n) 
-def cond_test(n):  return  'Fe' in n or 'Ni' in n
-
-
-train_index = list(filter(lambda x: x>=0, [ i if cond_train(n) else -1 for i, n in enumerate(NN_names)]     ))
-test_index = list(filter(lambda x: x>=0, [ i if cond_test(n) else -1 for i, n in enumerate(NN_names)]  ))
-
-X_train, X_test = NNx[train_index], NNx[test_index] 
-y_train, y_test = NNy[train_index], NNy[test_index]
-print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
-
-# data mining add reverse upside dpwm PDOS
-# ========== Train NN ========== #
-regr = MLPRegressor(random_state=3, activation='relu', #early_stopping=True, validation_fraction=0.10,
-					hidden_layer_sizes=(1000, 1000),max_iter=1000, #learning_rate='adaptive', warm_start=True,
-					#hidden_layer_sizes=(  400, 540, 540, 400,  ),max_iter=5000,
-					momentum=0.9, verbose=True, n_iter_no_change=20, ).fit(X_train, y_train)
-
-
-# ========== NN regresion ========== #
-NNp_test =  regr.predict(X_test)
-NNp =  regr.predict(X_train)
-NNp_all =  regr.predict(NNx)
-
-text = ['overpotencial_ORR_4e', 'Gabs_OOH', 'Eabs_OOH', 'Gabs_OH', 'Eabs_OH', 
-'Gabs_O', 'Eabs_O', 'G1_ORR', 'G2_ORR', 'G3_ORR', 'G4_ORR', 'limiting_step_ORR']
-
-# ========== Regresion plot ========== #
-for n in range(1):
-	plt.figure(n)
-	for i, m in enumerate(NNp_all[:,n]):		
-		if abs(NNy[i,n] - NNp_all[i,n]) > 0.0:
-			plt.text(NNy[i,n], NNp_all[i,n], NN_names[i], bbox=dict(facecolor='red', alpha=0.04))
-
-	plt.title( text[n] )
-	plt.plot(y_train[:,n], NNp[:,n], 'o')
-	plt.plot(y_test[:,n], NNp_test[:,n], 'o')
-
-
-	plt.plot( [0,10], [0,10] )
-	plt.plot( [0,10], [0.5,10.5] )
-	plt.plot( [0,10], [-0.5,9.5] )
-	if n == 1 or n ==2:
-		plt.xlim(3, 7)
-		plt.ylim(3, 7)
-	else:
-		plt.xlim(0, 4)
-		plt.ylim(0, 4)
-
-'''
-plt.figure(10)
-plt.plot(y_train[:,n], np.max(NNp[:,7:12], axis=1) , 'o')
-plt.plot(y_test[:,n],  np.max(NNp_test[:,7:12], axis=1) , 'o')
-
-plt.figure(11)
-plt.hist(NNy[:,0] - NNp_all[:,0], bins=32)
-
-
-limiting_step_ORR_ytrain =  np.argmax( NNy[:,7:12], axis=1 ) 
-limiting_step_ORR_NNp =  np.argmax( NNp_all[:,7:12], axis=1 ) 
-
-print(' ***** TRAIN *****')
-for i, m in enumerate(train_index): print('{} : {} : {:.3} : {} : {} '.format(limiting_step_ORR_ytrain[m], limiting_step_ORR_NNp[m],  NNy[m,0], NNp_all[m,0], NN_names[m],) )
-print(' ***** TEST *****')
-for i, m in enumerate(test_index): print('{} : {} : {:.3} : {:.3} : {} '.format(limiting_step_ORR_ytrain[m], limiting_step_ORR_NNp[m],  NNy[m,0], NNp_all[m,0], NN_names[m],) )
-'''
-print( np.sum(np.abs(y_test[:,0]-NNp_test[:,0])) )
-print( np.sum(np.abs(y_test[:,0]-NNp_test[:,0])) )
-plt.show()
-
-error
-'''
-print('Total number of samples:{}'.format(limiting_step_ORR_NNp.shape[0] ))
-c = np.sum(limiting_step_ORR_ytrain == limiting_step_ORR_NNp) 
-print('Confusion vector : ')
-
-print('correctly\t\t\t{:}\t\t\tIncorrectly\t\t\t{:}'.format(c, limiting_step_ORR_NNp.shape[0]-c) )
-print('correctly\t\t\t{:.3}\t\t\tIncorrectly\t\t\t{:.3}'.format(c/limiting_step_ORR_NNp.shape[0], 
-											(limiting_step_ORR_NNp.shape[0]-c)/limiting_step_ORR_NNp.shape[0]) )
-
-# ------------------------------------- # # ------------------------------------- #
-limiting_step_ORR_ytrain =  np.argmax( y_test[:,7:12], axis=1 ) 
-limiting_step_ORR_NNp =  np.argmax( NNp_test[:,7:12], axis=1 ) 
-
-print('Total number of samples:{}'.format(limiting_step_ORR_NNp.shape[0] ))
-c = np.sum(limiting_step_ORR_ytrain == limiting_step_ORR_NNp) 
-print('Confusion vector : ')
-
-print('correctly\t\t\t{:}\t\t\tIncorrectly\t\t\t{:}'.format(c, limiting_step_ORR_NNp.shape[0]-c) )
-print('correctly\t\t\t{:.3}\t\t\tIncorrectly\t\t\t{:.3}'.format(c/limiting_step_ORR_NNp.shape[0], 
-											(limiting_step_ORR_NNp.shape[0]-c)/limiting_step_ORR_NNp.shape[0]) )
-'''
-
-plt.show()
-
-error
-CoTPyP 		= [ 0.57, 	 0.53, 	 0.16, 	 0.22, 	 0.21, 	 0.17, 	 0.20, 	]
-FeTPyP      = [  0.50, 	 0.51, 	 0.67, 	 0.69, 	 0.52, 	 0.53, 	 0.59, 	]
-CoFeTPyP    = [  0.83 ,	 0.84, 	 0.35,   0.25, 	 0.53,	 0.54, 	 0.35,	]
-Fe0TPyPCo   = [ 0.59, 	 0.60, 	 0.77, 	 0.75, 	 0.64, 	 0.65, 	 0.68,  ]
-
-FeTPyPCo0   = [  0.30 ,	 0.30,	 0.60, 	 0.70 ,	 0.47, 	 0.55, 	 0.56, 	]
-Co0FeTPyPCo = [  0.86 ,	 0.86, 	 0.40,   0.28, 	 0.58, 	 0.52, 	 0.41, 	]
-CoFeTPyPCo0 = [  0.36, 	 0.35, 	 0.63, 	 0.72 ,	 0.46, 	 0.46, 	 0.59, 	]
-
-plotlist = [CoTPyP, FeTPyP, CoFeTPyP, Fe0TPyPCo, FeTPyPCo0, Co0FeTPyPCo, CoFeTPyPCo0 ]
-plotname = ['CoTPyP', 'FeTPyP', 'CoFeTPyP', 'Fe0TPyPCo', 'FeTPyPCo0', 'Co0FeTPyPCo', 'CoFeTPyPCo0']
-fig, ax = plt.subplots()
-for i, n in enumerate(plotlist):
-	order = [1,0,4,5,6,2,3]
-	ax.plot( np.array(n)[order], '-o', label=plotname[i] )
-legend = ax.legend(loc='upper center', shadow=True, fontsize='x-large')
-
-ax.set_xticklabels(['','D3bj', 'D3', 'DF2B86', 'OPTB86', 'OPTPBE', 'DF', 'DF2'])
-
-plt.show()
-error
