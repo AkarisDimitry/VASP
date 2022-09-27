@@ -79,7 +79,7 @@ class Data(object):
 
 		self.analysis_results = {}
 
-	def load(self, data:dict=None, files:str='all', v:bool:True ) -> list:
+	def load(self, data:dict=None, files:str='all', v:bool=True ) -> list:
 		return [self.load_system(name=name, path=path, files=files, v=v) for name, path in data.items() ]
 
 	def load_system_list(self, name_list=None, path_list=None, files='all', v=True) -> list:

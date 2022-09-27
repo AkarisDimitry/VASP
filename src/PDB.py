@@ -1,5 +1,5 @@
 # *** warning supresion
-import warnings, os, time
+import warnings, os, time, argparse
 import urllib.request
 warnings.filterwarnings("ignore")
 
@@ -334,6 +334,13 @@ class PDB(object): # generador de datos
 		dataout.close()
 		return True
 
+	def add_PDB(self, PDB2:object, save:bool=True) -> bool:
+		# add new PDB data from PDB2 to self.object
+		self.add_atoms( name 		= PDB2.ATOM_idx, 
+						position  	= PDB2.ATOM_xyz )
+
+		return True
+
 	def add_atoms(self, name:str=None, position:list=None, 
 						atoms_names_list:np.ndarray=None, atoms:np.ndarray=None,
 						save:bool=True) -> dict:
@@ -343,7 +350,10 @@ class PDB(object): # generador de datos
 		position 			= np.array(position) if type(position) 			is list else position
 		name 				= np.array([name]) 	 if type(name) 				is str  else name
 		
-		atoms = np.concatenate( (atoms, position[np.newaxis,:] ), axis=0 ) 
+		print(atoms.shape)
+		if len(atoms.shape) == 2:	atoms = np.concatenate( (atoms, position ), axis=0 ) 
+		else:						atoms = np.concatenate( (atoms, position[np.newaxis,:] ), axis=0 ) 
+		
 		atoms_names_list = np.concatenate( (atoms_names_list, name), axis=0 ) 
 
 		if save: 
@@ -407,7 +417,8 @@ class PDB(object): # generador de datos
              #cell     =	self.cell,
              pbc      =	[0, 0, 0])
 
-	def is_mutated(self, ): return self.MUTATION
+	def is_mutated(self, ) -> bool: return self.MUTATION
+
 	def is_engenierated(self, ): return self.ENGINEERED
 
 	def has_heteroatom(self, name=None, match='aprox'):
@@ -467,7 +478,7 @@ class PDB(object): # generador de datos
 		if append:
 			for ri, r in enumerate(rings):
 				if len(r) in allow_cicle_len:
-					mn = np.mean(self.ATOM_xyz[[r], :], axis=1 )[0]
+					mn = np.mean(self.ATOM_xyz[[r], :], axis=1 )[0] 
 					PDB1.add_atoms( 'C', mn )
 			return True
 
@@ -492,6 +503,49 @@ class PDB(object): # generador de datos
 
 			return True
 
+	# *******************************************************************************************************************************************************************
+	# * === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === *
+	# *******************************************************************************************************************************************************************
+def main(argv):
+	# === organize arg === #
+	inputfile  = argv['input']
+	outputfile = argv['output']
+	outputfile = 'outfiles.pdb' if outputfile is None else outputfile
+	task 	   = argv['task']
+	v 	  	   = True
+	
+	path  = ['/'.join(inputs.split('/')[:-1]) for inputs in inputfile]
+	names = [inputs.split('/')[-1] for inputs in inputfile]
+
+	if task == 'join':
+		# console INPUT example 
+		# python3 PDB.py -t join -i /home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb, /home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb -o denise.pdb
+
+		# === Make data holder === #
+		PDB1 = PDB(path=path[0], name=names[0])
+		PDB1.READ()
+
+		# === Make data holder === #
+		PDB2 = PDB(path=path[1], name=names[1])
+		PDB2.READ()
+
+		PDB1.add_PDB(PDB2)
+		PDB1.export_PDB( f'{outputfile}' )	
+
+if __name__ == "__main__":
+	parser = argparse.ArgumentParser()
+	
+	parser.add_argument('-t','--task', help="task to accomplish \n   read  :  Read files from dataset  \n    summarise  :  resume data from dataset ",
+	                    type=str, default='read', required=True)
+
+	parser.add_argument('-o','--output', help="name of data output file",
+	                    type=str, default=None, required=False)
+
+	parser.add_argument('-i','--input', help="File list",
+	                    type=str, default='all', nargs='+', required=False)
+
+	args = vars(parser.parse_args())
+	main(args)
 
 '''
 mypath = '/home/akaris/Documents/code/VASP/v4.6/files/POSCAR/ligands'
@@ -507,10 +561,6 @@ for n in onlyfiles:
 		
 		PDB1.add_center_cicle(path=mypath, name=n)
 		PDB1.export_PDB(name=mypath + '/' + n +'_exp')
-
-
-
-asfd
 
 print( PDB1.has_heteroatom('HOH') )
 '''

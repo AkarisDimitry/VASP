@@ -126,8 +126,8 @@ class OSZICAR(object):
 	def summary(self, ): 
 		OSZICAR_resumen = self.resume()
 
-		toprint = '    |       *-->[OSZICAR] ::\n'
-		for osr in OSZICAR_resumen['list']:	toprint += '    |         \t{}:{}\n'.format(osr[0], osr[1] )
+		toprint = ':: [OSZICAR] ::\n'
+		for osr in OSZICAR_resumen['list']:	toprint += '\t{} : {}\n'.format(osr[0], osr[1] )
 		print(toprint)
 		
 		return None

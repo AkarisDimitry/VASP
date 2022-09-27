@@ -112,10 +112,11 @@ class Set(object):
 	# * === LOAD/SAVE === LOAD/SAVE === LOAD/SAVE === LOAD/SAVE === LOAD/SAVE === LOAD/SAVE === LOAD/SAVE === LOAD/SAVE === LOAD/SAVE === LOAD/SAVE === LOAD/SAVE === *
 	# *****************************************************************************************************************************************************************
 	@Logs.LogDecorator()	
-	def  (self, dataset:dict=None, output:str=None, files:list=['all'], query:dict={'E':['total'], 'distances':[0, 1] }, 
-						save=True, verbosity:bool=True, append:bool:True) -> dict:
+	def read_data(self, dataset:dict=None, output:str=None, files:list=['all'], query:dict=None,
+						save:bool=True, verbosity:bool=True, append:bool=True, save_format:dict={'pickle'}) -> dict:									
 		# ----------------------------------------------------------------------------------		
-		'''# READ dataset #t
+		'''
+		# READ dataset #t
 		quert		:: 		dict 		:: 	dicttionary with the query
 		file 		::		str 		::  file name to save data
 		dataset 	:: 		obj 		:: 	dictionnary  that conteins all path to data set elements
@@ -129,31 +130,60 @@ class Set(object):
 		5.        Do an ORR on the data.
 		6.        Output the summary of the data.
 		7.        If save is set to True, save the data to a file.
-		# ----------------------------------------------------------------------------------		
+		# ----------------------------------------------------------------------------------	
+		query example: 
+
+		query:dict={
+		'ORR'		:[
+				'overpotencial_OER_4e','overpotencial_ORR_4e', 
+				'G1_OER'  ,	'G2_OER'  ,	'G3_OER' ,	'G4_OER' ,
+				'G1_ORR'  ,	'G2_ORR'  ,	'G3_ORR' ,	'G4_ORR' ,
+				'Eabs_OOH',	'Eabs_O'  ,	'Eabs_OH',
+				'Gabs_OH' ,	'Gabs_OOH',	'Gabs_O'	], 
+		'E'			: [], 
+		'distances'	: [0, 1] 
+		}, 	
 		'''
+		# ----------------------------------------------------------------------------------	
+		query = query if not query is None else {}
+		query_dict = {} if not query is None else None
 		v 		 = verbosity
 		output 	 = output 	if type(output) 	== str 	else 'dataset_save_state' 
 		dataset  = dataset 	if type(dataset)	== dict else self.dataset
-		self.set = {}		if not type(self.set) is dict or not append  
 		if not type(dataset) == dict: 	print('ERROR : code000 READ.read_data() : need dir/dataset ')
 
+		self.set = {}		if not type(self.set) is dict or not append  else self.set
+
 		for data_name, data_dict in dataset.items():
-			if v: print('-'*40+f'\n >>  {set_name} '+f'\n')
+			# LOAD >> make data obj and read Data
+			if v: print('-'*40+f'\n >>  {data_name} '+f'\n')
 			data = Data.Data()
 			data.load(data=data_dict, files=files, v=v)
 
+			# EVALUATE >> evaluate ORR from data
 			try:
 				data.ORR()
-				data.summary( )
+				if v: data.summary( )
 			except: pass
 
-			try:	self.set[data_name] = data
+			# GET >> get query_dict data
+			if not query is None: 
+				query_dict[data_name] = {}
+				if 'E' in query:	query_dict[data_name]['E']   = {system_name : system_obj.OSZICAR.E[-1] for system_name, system_obj in data.system.items() }
+				if 'ORR' in query:	query_dict[data_name]['ORR'] = {query_ORR : data.ORR_analysis.ORR[query_ORR] for query_ORR in query['ORR'] }
+				if v: print(query_dict)
+
+			# STORE >> store query data in self.set
+			try:self.set[data_name] = data
 			except: print('ERROR :: Set.read_data() :: can not merge data ')
-		if save: self.save_set(filename=f'{output}.pkl', dataset=self.set, light=False)
+
+		# SAVE >> save data into hard drive
+		if save: self.save_set(filename=f'{output}', dataset=self.set, save_format=save_format, query_dict=query_dict)
 		return True
 
 	@Logs.LogDecorator()
-	def save_set(self, filename=None, dataset=None, light=True):
+	def save_set(self, filename:str=None, dataset=None, 
+				save_format:dict={'pickle', 'light'}, query_dict:dict=None) -> bool:
 		'''
 		1.      It determines whether the dataset is a dict or a list. If it's a list, it loops through the dataset and creates an object for each set in the dataset.
 		2.      It creates a dataset_matrix object that will hold the data for each set in the dataset.
@@ -167,20 +197,32 @@ class Set(object):
 		'''
 		dataset = dataset if type(dataset) == dict else self.set
 
-		#[for sys_name in dataset[set_name] for set_name in dataset ]
-		if light:
-			subsystem_order = { unique_name:index for index, unique_name in enumerate(list(set([sys_name for set_name in dataset for sys_name in dataset[set_name]  ])))}
-			dataset_matrix = np.zeros( len(dataset), len(subsys_list) )
-			for set_name in dataset:
-				for sys_name in dataset[set_name]:
-					pass # NOT IMPLEMENTED
+		if 'light' in save_format:
+			filename_light = f'{filename}.dat' if type(filename) is str else 'output_lightset.dat'
 
-		else:
-			filename = filename if type(filename) else 'filename'
+			query_file = open(filename_light, 'w') 
+			for data_name, data_item in query_dict.items():
+				query_file.write(f'{data_name:<.20s}\t')
+				if 'E' in data_item:	
+					for system_name, system_data in data_item['E'].items():
+						query_file.write(f'{system_data:<.4f}\t')
+				
+				if 'ORR' in data_item:	
+					for system_name, system_data in data_item['ORR'].items():
+						query_file.write(f'{system_data:<.4f}\t')
+				
+				query_file.write('\n')
+			query_file.close()
+
+		if 'pickle' in save_format:
+			filename = f'{filename}.pkl' if type(filename) is str else 'output_set.pkl'
 			filehandler = open(filename, 'wb') 
 			pickle.dump(dataset, filehandler)
+			filehandler.close()
 
-	def load_data(self, filename, verbosity=True):
+		return True
+
+	def load_data(self, filename:str, verbosity:bool=True) -> dict:
 		dataset = pickle.load( open( filename, "rb" ), encoding='latin1') # encoding='bytes'
 		self.__dict__ = dataset.__dict__.copy() 
 		print(f' >> Successfully read {filename}\n')
@@ -238,22 +280,10 @@ class Set(object):
 		return dataset
 		'''
 
-
-	def make_tabla(self, matrix, format='latex', col_names=[], fil_names=[], print=True, save=False ):
-		lines = []
-		lines.append( ' & '.join(col_names)+'\\\\' )
-		for i, n in enumerate(matrix):
-			lines.append( ' & '.join(n)+'\\\\' )
-
-	def summary(self, feature={'ORR':True}, latex=False, xml=False, path=None):
-		path = path if type(path) == str else '.' 
-
+	def summary(self, feature:dict={'ORR':True} ) -> bool:
 		for set_n, (key_data, data) in enumerate(self.set.items()):
 			print( ' {1} System {0} {1}'.format(key_data, '*'*12) )
 			data.summary( feature={'ORR':True} )	
-			# ------------------------------------- #
-			# ---  XML XML XML XML XML XML XML  --- #
-			# ------------------------------------- #
 
 		return True
 
@@ -734,7 +764,8 @@ def main(argv):
 		except: pass
 		data_dict = __import__(inputfile.split('/')[-1])
 	
-		dataset.read_data( dataset=data_dict.Set, files=files, verbosity=v)
+		dataset.read_data( dataset=data_dict.Set, files=files, save_format={'pickle'}, 
+							output=outputfile, verbosity=v)
 		filename = f'{outputfile}.pkl'
 		filehandler = open(filename, 'wb')
 		pickle.dump(dataset, filehandler)
@@ -742,7 +773,6 @@ def main(argv):
 	if task == 'xml':
 		dataset.load_data( filename=inputfile, verbosity=v)
 		dataset.summary(xml=True, path=outputfile)
-		print(outputfile)
 
 	if task == 'dat':
 		path = '/'.join(inputfile.split('/')[:-1])
@@ -750,8 +780,16 @@ def main(argv):
 		except: pass
 		data_dict = __import__(inputfile.split('/')[-1])
 	
-		dataset.get_data( dataset=data_dict.Set, output='data' )
-
+		dataset.read_data( dataset=data_dict.Set, files=['OSZICAR'], save_format={'pickle', 'light'}, 
+						   output=outputfile, verbosity=v, 
+						   query={'ORR'		:['overpotencial_OER_4e','overpotencial_ORR_4e', 
+													'G1_OER'  ,	'G2_OER'  ,	'G3_OER' ,	'G4_OER' ,
+													'G1_ORR'  ,	'G2_ORR'  ,	'G3_ORR' ,	'G4_ORR' ,
+													'Eabs_OOH',	'Eabs_O'  ,	'Eabs_OH',
+													'Gabs_OH' ,	'Gabs_OOH',	'Gabs_O'	], 
+									'E'			:['total'],		
+								} )
+	
 	if task == 'XYN':
 		path = '/'.join(inputfile.split('/')[:-1])
 		path = inputfile.split('/')[-1]
@@ -760,9 +798,6 @@ def main(argv):
 		np.savetxt(f'{path}/{file}_X.dat', nnx)
 		np.savetxt(f'{path}/{file}_Y.dat', nny)
 		np.savetxt(f'{path}/{file}_N.dat', name, fmt='%s')
-
-
-
 
 	print(f'Input  >> {inputfile} ')
 	print(f'OUTPUT >> {outputfile}')

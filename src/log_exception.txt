@@ -394,3 +394,17 @@ Exception raised in asdf. exception: name 'asdfasdf' is not definedException rai
 
 >> 2022-09-24 20:12:07.348979 >> Exception raised in >> __main__.PDB.READ(): >> exception: could not convert string to float: '2.021 -'
 
+>> 2022-09-26 21:47:43.013748 >> Exception raised in >> __main__.PDB.READ(): >> exception: list index out of range
+
+>> 2022-09-26 21:48:01.496463 >> Exception raised in >> __main__.PDB.READ(): >> exception: list index out of range
+
+>> 2022-09-26 22:11:48.189128 >> Exception raised in >> __main__.PDB.READ(): >> exception: [Errno 2] No such file or directory: '[/home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb'
+
+>> 2022-09-26 22:15:15.730258 >> Exception raised in >> __main__.PDB.READ(): >> exception: [Errno 2] No such file or directory: '/home/akaris/Documents/temporal/denise/3/s/p/u/_/A/_/s/i/n/O/H/./p/d/b/,'
+
+>> 2022-09-26 22:15:47.440197 >> Exception raised in >> __main__.PDB.READ(): >> exception: [Errno 2] No such file or directory: '[/home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb,'
+
+>> 2022-09-26 22:15:49.732566 >> Exception raised in >> __main__.PDB.READ(): >> exception: [Errno 2] No such file or directory: '/home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb,'
+
+>> 2022-09-26 22:15:58.584580 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: [Errno 2] No such file or directory: "['/home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb', '/home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb'].pdb"
+
