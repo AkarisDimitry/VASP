@@ -503,6 +503,81 @@ class PDB(object): # generador de datos
 
 			return True
 
+	def filter(self, filter_type='residues', residues=None, save=True):
+		ATOM 			= np.array(self.ATOM)
+															# 1 -  6        Record name   "ATOM  "
+		ATOM_num 		= np.array(self.ATOM_num)			# 7 - 11        Integer       serial       Atom  serial number.
+		ATOM_idx 		= np.array(self.ATOM_idx) 			# 13 - 16        Atom          name         Atom name.
+															# 17             Character     altLoc       Alternate location indicator.
+		ATOM_alt 		= np.array(self.ATOM_alt)			# 18 - 20        Residue name  resName      Residue name.
+		ATOM_ani 		= np.array(self.ATOM_ani)			# 22             Character     chainID      Chain identifier.
+
+		ATOM_res   		= np.array(self.ATOM_res)			# 23 - 26        Integer       resSeq       Residue sequence number.
+		ATOM_iCode 		= np.array(self.ATOM_iCode) 		# 27             AChar         iCode        Code for insertion of residues.
+		ATOM_xyz   		= np.array(self.ATOM_xyz)			# 31 - 38        Real(8.3)     x            Orthogonal coordinates for X in Angstroms.
+															# 39 - 46        Real(8.3)     y            Orthogonal coordinates for Y in Angstroms.
+															# 47 - 54        Real(8.3)     z            Orthogonal coordinates for Z in Angstroms.
+		ATOM_occupancy 	= np.array(self.ATOM_occupancy)		# 55 - 60        Real(6.2)     occupancy    Occupancy.
+
+		ATOM_tempFactor = np.array(self.ATOM_tempFactor)	# 61 - 66        Real(6.2)     tempFactor   Temperature  factor.
+		ATOM_element    = np.array(self.ATOM_element)		# 77 - 78        LString(2)    element      Element symbol, right-justified.
+		ATOM_charge     = np.array(self.ATOM_charge)		# 79 - 80        LString(2)    charge       Charge  on the atom.
+
+		# === make mask === #
+		if filter_type == 'residues':	filter_mask = [ n in residues for n in ATOM_res ]
+		ATOM_idx = np.array([n[0] for n in ATOM_idx] )
+		print(ATOM_idx) 
+		print(ATOM_res) 
+		# === apply mask === #
+		ATOM 			= ATOM[filter_mask]
+														# 1 -  6        Record name   "ATOM  "
+		ATOM_num 		= ATOM_num[filter_mask]			# 7 - 11        Integer       serial       Atom  serial number.
+		ATOM_idx 		= ATOM_idx[filter_mask] 		# 13 - 16        Atom          name         Atom name.
+														# 17             Character     altLoc       Alternate location indicator.
+		ATOM_alt 		= ATOM_alt[filter_mask]			# 18 - 20        Residue name  resName      Residue name.
+		ATOM_ani 		= ATOM_ani[filter_mask]			# 22             Character     chainID      Chain identifier.
+
+		ATOM_res   		= ATOM_res[filter_mask]			# 23 - 26        Integer       resSeq       Residue sequence number.
+		ATOM_iCode 		= ATOM_iCode[filter_mask] 		# 27             AChar         iCode        Code for insertion of residues.
+		ATOM_xyz   		= ATOM_xyz[filter_mask]			# 31 - 38        Real(8.3)     x            Orthogonal coordinates for X in Angstroms.
+														# 39 - 46        Real(8.3)     y            Orthogonal coordinates for Y in Angstroms.
+														# 47 - 54        Real(8.3)     z            Orthogonal coordinates for Z in Angstroms.
+		ATOM_occupancy 	= ATOM_occupancy[filter_mask]	# 55 - 60        Real(6.2)     occupancy    Occupancy.
+
+		ATOM_tempFactor = ATOM_tempFactor[filter_mask]	# 61 - 66        Real(6.2)     tempFactor   Temperature  factor.
+		ATOM_element    = ATOM_element[filter_mask]		# 77 - 78        LString(2)    element      Element symbol, right-justified.
+		ATOM_charge     = ATOM_charge[filter_mask]		# 79 - 80        LString(2)    charge       Charge  on the atom.
+
+		if save:
+			# === save filtered data === #
+			self.ATOM 			= 	ATOM
+														# 1 -  6        Record name   "ATOM  "
+			self.ATOM_num 		= 	ATOM_num			# 7 - 11        Integer       serial       Atom  serial number.
+			self.ATOM_idx 		= 	ATOM_idx 			# 13 - 16        Atom          name         Atom name.
+														# 17             Character     altLoc       Alternate location indicator.
+			self.ATOM_alt 		= 	ATOM_alt			# 18 - 20        Residue name  resName      Residue name.
+			self.ATOM_ani 		= 	ATOM_ani			# 22             Character     chainID      Chain identifier.
+
+			self.ATOM_res   	= 	ATOM_res			# 23 - 26        Integer       resSeq       Residue sequence number.
+			self.ATOM_iCode 	= 	ATOM_iCode 			# 27             AChar         iCode        Code for insertion of residues.
+			self.ATOM_xyz   	= 	ATOM_xyz			# 31 - 38        Real(8.3)     x            Orthogonal coordinates for X in Angstroms.
+														# 39 - 46        Real(8.3)     y            Orthogonal coordinates for Y in Angstroms.
+														# 47 - 54        Real(8.3)     z            Orthogonal coordinates for Z in Angstroms.
+			self.ATOM_occupancy  = 	ATOM_occupancy		# 55 - 60        Real(6.2)     occupancy    Occupancy.
+
+			self.ATOM_tempFactor = 	ATOM_tempFactor		# 61 - 66        Real(6.2)     tempFactor   Temperature  factor.
+			self.ATOM_element    =	ATOM_element			# 77 - 78        LString(2)    element      Element symbol, right-justified.
+			self.ATOM_charge     = 	ATOM_charge			# 79 - 80        LString(2)    charge       Charge  on the atom.
+
+		return { 	
+					'ATOM'			:	ATOM 			, 'ATOM_num'		: ATOM_num,
+					'ATOM_idx'		:	ATOM_idx		, 'ATOM_alt'		: ATOM_alt,
+					'ATOM_ani'		:	ATOM_ani 		, 'ATOM_res'		: ATOM_res,
+					'ATOM_iCode'	:	ATOM_iCode 		, 'ATOM_xyz'		: ATOM_xyz,
+					'ATOM_occupancy':	ATOM_occupancy 	, 'ATOM_tempFactor'	: ATOM_tempFactor,
+					'ATOM_element'	:	ATOM_element 	, 'ATOM_charge'		: ATOM_charge
+				}
+
 	# *******************************************************************************************************************************************************************
 	# * === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === ARGPARSE === *
 	# *******************************************************************************************************************************************************************
@@ -513,7 +588,7 @@ def main(argv):
 	outputfile = 'outfiles.pdb' if outputfile is None else outputfile
 	task 	   = argv['task']
 	v 	  	   = True
-	
+	residues = argv['residues']
 	path  = ['/'.join(inputs.split('/')[:-1]) for inputs in inputfile]
 	names = [inputs.split('/')[-1] for inputs in inputfile]
 
@@ -532,6 +607,32 @@ def main(argv):
 		PDB1.add_PDB(PDB2)
 		PDB1.export_PDB( f'{outputfile}' )	
 
+	if task == 'filter':
+		# console INPUT example 
+		# python3 PDB.py -t join -i /home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb, /home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb -o denise.pdb
+
+		# === Make data holder === #
+		PDB1 = PDB(path=path[0], name=names[0])
+		PDB1.READ()
+
+		# === Filter === #
+		PDB1.filter( filter_type='residues', residues=residues,)
+
+		# === export === #
+		PDB1.export_PDB( f'{outputfile}' )	
+
+
+	if task == 'export':
+		# console INPUT example 
+		# python3 PDB.py -t join -i /home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb, /home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb -o denise.pdb
+
+		# === Make data holder === #
+		PDB1 = PDB(path=path[0], name=names[0])
+		PDB1.READ()
+
+		# === export === #
+		PDB1.export_PDB( f'{outputfile}' )	
+
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	
@@ -544,8 +645,12 @@ if __name__ == "__main__":
 	parser.add_argument('-i','--input', help="File list",
 	                    type=str, default='all', nargs='+', required=False)
 
+	parser.add_argument('-res','--residues', help="residues list",
+	                    type=int, default=None, nargs='+', required=False)
+
 	args = vars(parser.parse_args())
 	main(args)
+
 
 '''
 mypath = '/home/akaris/Documents/code/VASP/v4.6/files/POSCAR/ligands'

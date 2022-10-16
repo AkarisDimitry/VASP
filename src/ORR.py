@@ -859,104 +859,262 @@ class OxigenReaction(object):
 
 if __name__ == "__main__":
 
-	orr = OxigenReaction() # ========= FeTPyP[Co] + Au 13.7 (M2) D3 ========= # 
-	orr.calculate(sys={'E':-819.983,'ZPE':0.0,'S':0.0}, sys_O={'E':-825.643,'ZPE':0.07,'S':0.0},
-				 sys_OH={'E':-830.0851,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-834.585,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
-	orr.plot_integrated('FeTPyP[Co] + Au 13.7 (M2) D3'.format(0))
-	orr.summarise_steps()
-	orr.summarise_absortion()
 
-	orr = OxigenReaction() # ========= FeTPyP + Au 13.7  D3 ========= # 
-	orr.calculate(sys={'E':-826.4871,'ZPE':0.0,'S':0.0}, sys_O={'E':-832.049,'ZPE':0.07,'S':0.0},
-				 sys_OH={'E':-836.5126,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-841.0342,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+	# ========================== TPyP  ========================== #
+	orr = OxigenReaction() # ========= FeTPyP + Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-826.487,'ZPE':0.0,'S':0.0}, sys_O={'E':-832.0498,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-836.5126,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-841.034,'ZPE':0.43,'S':0.0}, sys_O2=None, 
 							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
 	orr.plot_integrated('FeTPyP + Au 13.7 (M2) D3'.format(0))
 	orr.summarise_steps()
 	orr.summarise_absortion()
 
-	orr = OxigenReaction() # ========= FeTPyPCo + Au 13.7 (M2) D3 ========= # 
-	orr.calculate(sys={'E':-834.4041,'ZPE':0.0,'S':0.0}, sys_O={'E':-840.234,'ZPE':0.07,'S':0.0},
-				 sys_OH={'E':-844.608,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-849.181,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+	orr = OxigenReaction() # ========= FeTPyPCo + Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-834.404,'ZPE':0.0,'S':0.0}, sys_O={'E':-840.234,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-844.608,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-849.1817,'ZPE':0.43,'S':0.0}, sys_O2=None, 
 							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
 	orr.plot_integrated('FeTPyPCo + Au 13.7 (M2) D3'.format(0))
 	orr.summarise_steps()
 	orr.summarise_absortion()
 
+	orr = OxigenReaction() # ========= Co*FeTPyP + Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-833.2052,'ZPE':0.0,'S':0.0}, sys_O={'E':-837.861,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-842.860,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-847.411,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('Co*FeTPyP + Au 13.7 (M2) D3'.format(0))
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+
+	orr = OxigenReaction() # ========= Co*FeTPyPCo + Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-841.094,'ZPE':0.0,'S':0.0}, sys_O={'E':-845.6541,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-850.711,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-855.275,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('Co*FeTPyPCo + Au 13.7 (M2) D3'.format(0))
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+
+	orr = OxigenReaction() # ========= FeTPyPCo* + Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-841.094,'ZPE':0.0,'S':0.0}, sys_O={'E':-846.0235,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-851.437,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-855.861,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyPCo* + Au 13.7 (M2) D3'.format(0))
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
+
+	orr = OxigenReaction() # ========= CoFeTPyPCo* + Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-834.404,'ZPE':0.0,'S':0.0}, sys_O={'E':-839.896,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-844.693,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-849.159,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('CoFeTPyPCo* + Au 13.7 (M2) D3'.format(0))
+	orr.summarise_steps()
+	orr.summarise_absortion()
+
 	plt.show()
 
-	asdf
 
+	
 	# ========================== TPyP + F ========================== #  	# ========================== PC ========================== #  	# ========================== PC ========================== #  
-	# ========================== Au ========================== #  
-	orr = OxigenReaction() # ========= FeTPyP + 1F Au 13.7 D3 ========= # 
-	orr.calculate(sys={'E':-826.4052,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.9717,'ZPE':0.07,'S':0.0},
-				 sys_OH={'E':-836.4334,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.967,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+	Substitution_data = {
+	'14.5':{	'OP' :	np.array([0.541, 0.539, 0.534, 0.523, 0.497, 0, 0.500, 0.485, 0.483]),
+				'O'  :	np.array([1.76, 1.76, 1.74, 1.78, 1.82, 0, 1.85, 1.87, 1.93]),
+				'OH' :	np.array([1.07, 1.07, 1.04, 1.07, 1.09, 0, 1.12, 1.13, 1.18]),
+				'OOH':	np.array([4.08, 4.03, 4.01, 4.05, 4.09, 0, 4.10, 4.11, 4.17]), },
+	'13.7':{	'OP' :	np.array([0.548, 0.548, 0.553, 0.539, 0.533, 0.53, 0.498, 0.498, 0.496]),
+				'O'  :	np.array([1.82, 1.82, 1.85, 1.87, 1.89, 1.89, 1.92, 1.93, 1.93, ]),
+				'OH' :	np.array([1.14, 1.14, 1.17, 1.18, 1.19, 1.19, 1.18, 1.20, 1.20, ]),
+				'OOH':	np.array([4.08, 4.09, 4.12, 4.13, 4.15, 4.15, 4.15, 4.16, 4.18, ]), },
+	}
+	filters = np.array([True, True, True, True, True, False, True, True, True, ])
+	X = np.array([8,7,6,5,4,3,2,1,0])[filters]
+	X1 = np.array([8,7,6,5,4,3,2,1,0])
+	fig, ([[ax11, ax12],[ax21, ax22]]) = plt.subplots(2, 2, figsize=(10, 10) )
+	ax11.plot(X, Substitution_data['14.5']['OP'] [filters]  , '-o', label='overpotencial 14.5') 
+	ax11.plot(X1, Substitution_data['13.7']['OP'] 			, '-o', label='overpotencial 13.7') 
+	ax11.set(xlabel='number of F'	, ylabel='Free energy (eV)', 	)
+	
+	ax12.plot(X, Substitution_data['14.5']['O']  [filters]  , '-o', label='G_Oads 14.5') 
+	ax12.plot(X1, Substitution_data['13.7']['O']  		 	, '-o', label='G_Oads 13.7') 
+	ax12.set(xlabel='number of F'	, ylabel='Free energy (eV)', 	)
+	
+	ax21.plot(X, Substitution_data['14.5']['OH'] [filters]  , '-o', label='G_OHads') 
+	ax21.plot(X1, Substitution_data['13.7']['OH']   		, '-o', label='G_OHads 13.7') 
+	ax21.set(xlabel='number of F'	, ylabel='Free energy (eV)', 	)
+
+	ax22.plot(X, Substitution_data['14.5']['OOH'][filters]  , '-o', label='G_OOHads') 
+	ax22.plot(X1, Substitution_data['13.7']['OOH']   		, '-o', label='G_OOHads 13.7') 
+	ax22.set(xlabel='number of F'	, ylabel='Free energy (eV)', 	)
+	ax11.legend(loc='best');	ax12.legend(loc='best');	ax21.legend(loc='best');	ax22.legend(loc='best')	
+	plt.show() 
+
+	orr = OxigenReaction() # ========= FeTPyP + 8F Au 14.56 D3 ========= # 
+	orr.calculate(sys={'E':-837.3235,'ZPE':0.0,'S':0.0}, sys_O={'E':-843.0608,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-847.480,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-851.965,'ZPE':0.43,'S':0.0}, sys_O2=None, 
 							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
-	orr.plot_integrated('FeTPyP + 1F Au 13.7 D3')
+	orr.plot_integrated('FeTPyP + 8F Au 14.56 D3')
 	orr.summarise_steps()
-	orr.summarise_absortion()
-
-	orr = OxigenReaction() # ========= FeTPyP + 2F Au 13.7 D3 ========= # 
-	orr.calculate(sys={'E':-826.262,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.8407,'ZPE':0.07,'S':0.0},
-				 sys_OH={'E':-836.301,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.842,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
-	orr.plot_integrated('FeTPyP + 2F Au 13.7 D3')
-	orr.summarise_steps()
-	orr.summarise_absortion()
-
-	orr = OxigenReaction() # ========= FeTPyP + 3F Au 13.7 D3 ========= # 
-	orr.calculate(sys={'E':-826.251,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.829,'ZPE':0.07,'S':0.0},
-				 sys_OH={'E':-836.285,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.815,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
-	orr.plot_integrated('FeTPyP + 3F Au 13.7 D3')
-	orr.summarise_steps()
-	orr.summarise_absortion()
-
-	orr = OxigenReaction() # ========= FeTPyP + 4F Au 13.7 D3 ========= # 
-	orr.calculate(sys={'E':-826.019,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.627,'ZPE':0.07,'S':0.0},
-				 sys_OH={'E':-836.0545,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.5998,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
-	orr.plot_integrated('FeTPyP + 4F Au 13.7 D3')
-	orr.summarise_steps()
-	orr.summarise_absortion()
-
-	orr = OxigenReaction() # ========= FeTPyP + 5F Au 13.7 D3 ========= # 
-	orr.calculate(sys={'E':-825.667,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.3916,'ZPE':0.07,'S':0.0},
-				 sys_OH={'E':-835.8226,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.3633,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
-	orr.plot_integrated('FeTPyP + 5F Au 13.7 D3')
-	orr.summarise_steps()
-	orr.summarise_absortion() # ??????????????????????????? * O* OH* OOH* ?????????????
-
-	orr = OxigenReaction() # ========= FeTPyP + 6F Au 13.7 D3 ========= # 
-	orr.calculate(sys={'E':-826.019,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.2021,'ZPE':0.07,'S':0.0},
-				 sys_OH={'E':-835.609,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.169,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
-	orr.plot_integrated('FeTPyP + 6F Au 13.7 D3')
-	orr.summarise_steps()
-	orr.summarise_absortion() # ??????????????????????????? * O* OH* OOH* ?????????????
-
-
-	orr = OxigenReaction() # ========= FeTPyP + 7F Au 13.7 D3 ========= # 
-	orr.calculate(sys={'E':-825.4916,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.163,'ZPE':0.07,'S':0.0},
-				 sys_OH={'E':-835.575,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.123,'ZPE':0.43,'S':0.0}, sys_O2=None, 
-							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
-	orr.plot_integrated('FeTPyP + 7F Au 13.7 D3')
-	orr.summarise_steps()
-	orr.summarise_absortion() 
-
+	orr.summarise_absortion()  
+	
 	orr = OxigenReaction() # ========= FeTPyP + 8F Au 13.7 D3 ========= # 
-	orr.calculate(sys={'E':-825.159,'ZPE':0.0,'S':0.0}, sys_O={'E':-830.8333,'ZPE':0.07,'S':0.0},
-				 sys_OH={'E':-835.2454,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-839.736,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+	orr.calculate(sys={'E':-825.159,'ZPE':0.0,'S':0.0}, sys_O={'E':-830.833,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-835.2454,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-839.802,'ZPE':0.43,'S':0.0}, sys_O2=None, 
 							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
 	orr.plot_integrated('FeTPyP + 8F Au 13.7 D3')
 	orr.summarise_steps()
-	orr.summarise_absortion()  # ??????????????????????????? OOH* ?????????????
-		
+	orr.summarise_absortion()  
+
 	plt.show()
 
-	sdaf840873
+	# ========================== TPyP + F ========================== #  	# ========================== PC ========================== #  	# ========================== PC ========================== #  
+	orr = OxigenReaction() # ========= FeTPyP + 7F Au 14.56 D3 ========= # 
+	orr.calculate(sys={'E':-837.596,'ZPE':0.0,'S':0.0}, sys_O={'E':-843.3329,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-847.7535,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-852.2917,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 7F Au 14.56 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+	
+	orr = OxigenReaction() # ========= FeTPyP + 7F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-825.491,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.1632,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-835.575,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.1231,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 7F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+
+	plt.show()
+
+
+	# ========================== TPyP + F ========================== #  	# ========================== PC ========================== #  	# ========================== PC ========================== #  
+	orr = OxigenReaction() # ========= FeTPyP + 6F Au 14.56 D3 ========= # 
+	orr.calculate(sys={'E':-837.6862,'ZPE':0.0,'S':0.0}, sys_O={'E':-843.4438,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-847.870,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-852.406,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 6F Au 14.56 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+	
+	orr = OxigenReaction() # ========= FeTPyP + 6F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-825.560,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.202,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-835.6094,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.169,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 6F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+
+	plt.show()
+
+
+	orr = OxigenReaction() # ========= FeTPyP + 5F Au 14.56 D3 ========= # 
+	orr.calculate(sys={'E':-837.960,'ZPE':0.0,'S':0.0}, sys_O={'E':-843.674,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-848.111,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-852.633,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 5F Au 14.56 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+	
+	orr = OxigenReaction() # ========= FeTPyP + 5F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-825.752,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.372,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-835.853,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.3499,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 5F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+
+	plt.show()
+
+	orr = OxigenReaction() # ========= FeTPyP + 4F Au 14.56 D3 ========= # 
+	orr.calculate(sys={'E':-838.129,'ZPE':0.0,'S':0.0}, sys_O={'E':-843.800,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-848.2628,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-852.769,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 4F Au 14.56 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+	
+	orr = OxigenReaction() # ========= FeTPyP + 4F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-826.251,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.829,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-836.285,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.815,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 4F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+
+	plt.show()
+
+	
+	orr = OxigenReaction() # ========= FeTPyP + 3F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-826.0199,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.627,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-836.054,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.599,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 4F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+
+	plt.show()
+
+
+	orr = OxigenReaction() # ========= FeTPyP + 2F Au 14.56 D3 ========= # 
+	orr.calculate(sys={'E':-838.358,'ZPE':0.0,'S':0.0}, sys_O={'E':-843.9996,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-848.460,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-852.981,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 2F Au 14.56 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+	
+	orr = OxigenReaction() # ========= FeTPyP + 2F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-826.2624,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.840,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-836.3015,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.842,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 2F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+
+	plt.show()
+
+
+	orr = OxigenReaction() # ========= FeTPyP + 1F Au 14.56 D3 ========= # 
+	orr.calculate(sys={'E':-838.5248,'ZPE':0.0,'S':0.0}, sys_O={'E':-844.144,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-848.619,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-853.136,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 1F Au 14.56 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+	
+	orr = OxigenReaction() # ========= FeTPyP + 1F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-826.405,'ZPE':0.0,'S':0.0}, sys_O={'E':-831.971,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-836.433,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-840.9672,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 1F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+
+	plt.show()
+
+
+
+	orr = OxigenReaction() # ========= FeTPyP + 0F Au 14.56 D3 ========= # 
+	orr.calculate(sys={'E':-838.637,'ZPE':0.0,'S':0.0}, sys_O={'E':-844.2007,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-848.6783,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-853.183,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 0F Au 14.56 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+	
+	orr = OxigenReaction() # ========= FeTPyP + 0F Au 13.7 D3 ========= # 
+	orr.calculate(sys={'E':-826.487,'ZPE':0.0,'S':0.0}, sys_O={'E':-832.049,'ZPE':0.07,'S':0.0},
+				 sys_OH={'E':-836.5126,'ZPE':0.35,'S':0.0}, sys_OOH={'E':-841.036,'ZPE':0.43,'S':0.0}, sys_O2=None, 
+							H2O={'E':-14.213,'ZPE':0.56,'S':0.67}, H2={'E':-6.76,'ZPE':0.27,'S':0.41}, Gb=-0.0)
+	orr.plot_integrated('FeTPyP + 0F Au 13.7 D3')
+	orr.summarise_steps()
+	orr.summarise_absortion()  
+
+	plt.show()
+	asdfsadf
+
+
+
 	# ========================== PC ========================== #  	# ========================== PC ========================== #  	# ========================== PC ========================== #  
 	# ========================== Au ========================== #  
 	orr = OxigenReaction() # ========= CoPc Au 13.7 D3 ========= # 

@@ -408,3 +408,33 @@ Exception raised in asdf. exception: name 'asdfasdf' is not definedException rai
 
 >> 2022-09-26 22:15:58.584580 >> Exception raised in >> __main__.PDB.export_PDB(): >> exception: [Errno 2] No such file or directory: "['/home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb', '/home/akaris/Documents/temporal/denise/3spu_A_sinOH.pdb'].pdb"
 
+>> 2022-10-03 14:00:45.086481 >> Exception raised in >> __main__.Set.get_dataset(): >> exception: name 'save' is not defined
+
+>> 2022-10-03 14:02:17.473251 >> Exception raised in >> __main__.Set.get_dataset_PDOS2OP(): >> exception: name 'save' is not defined
+
+>> 2022-10-05 10:43:56.074300 >> Exception raised in >> __main__.DOSCAR.plot_orbital_diagram(): >> exception: 'NoneType' object is not subscriptable
+
+>> 2022-10-05 10:44:18.229229 >> Exception raised in >> __main__.DOSCAR.plot_orbital_diagram(): >> exception: 'NoneType' object is not subscriptable
+
+>> 2022-10-05 10:44:54.246137 >> Exception raised in >> __main__.DOSCAR.plot_orbital_diagram(): >> exception: 'NoneType' object is not subscriptable
+
+>> 2022-10-08 18:00:02.832237 >> Exception raised in >> __main__.QMlearning.load_folder(): >> exception: only integer scalar arrays can be converted to a scalar index
+
+>> 2022-10-08 18:00:26.655459 >> Exception raised in >> __main__.QMlearning.load_folder(): >> exception: only integer scalar arrays can be converted to a scalar index
+
+>> 2022-10-08 18:00:49.668056 >> Exception raised in >> __main__.QMlearning.load_folder(): >> exception: only integer scalar arrays can be converted to a scalar index
+
+>> 2022-10-09 14:59:03.966136 >> Exception raised in >> __main__.QMlearning.load_folder(): >> exception: only integer scalar arrays can be converted to a scalar index
+
+>> 2022-10-09 15:17:08.228837 >> Exception raised in >> __main__.QMlearning.load_folder(): >> exception: all the input array dimensions for the concatenation axis must match exactly, but along dimension 0, the array at index 0 has size 81 and the array at index 1 has size 71
+
+>> 2022-10-09 15:17:11.759737 >> Exception raised in >> __main__.QMlearning.load_folder(): >> exception: only integer scalar arrays can be converted to a scalar index
+
+>> 2022-10-09 15:17:54.789661 >> Exception raised in >> __main__.QMlearning.load_folder(): >> exception: only integer scalar arrays can be converted to a scalar index
+
+>> 2022-10-13 11:02:28.931543 >> Exception raised in >> __main__.DOSCAR.plot_orbital_diagram(): >> exception: 'NoneType' object is not subscriptable
+
+>> 2022-10-13 11:02:44.402034 >> Exception raised in >> __main__.DOSCAR.plot_orbital_diagram(): >> exception: 'NoneType' object is not subscriptable
+
+>> 2022-10-16 16:59:19.866416 >> Exception raised in >> __main__.PDB.READ(): >> exception: [Errno 2] No such file or directory: '/home/akaris/Documents/code/VASP/v4.6/files/POSCAR/proteins/NDM1/lingandos/cluster14exs_sx_acc_aro.pdb'
+

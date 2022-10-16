@@ -82,7 +82,8 @@ class DOSCAR(object):
 							'd_x2-y2(d)':	[18],
 							'd_x2-y2'	:	[17, 18],
 							'd'			:	[9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
-							'z'			:	[5, 6, 11, 12, 13, 14, 15, 16]	
+							'z'			:	[5, 6, 11, 12, 13, 14, 15, 16],
+							'dz'		:	[11, 12, 13, 14, 15, 16],
 							}
 
 		self.plot_ions = plot_ions
@@ -209,7 +210,7 @@ class DOSCAR(object):
 		try: self.orbital_index
 		except: 
 			self.orbital_index = {
-							'all'	 :[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], 'z':	[5, 6, 11, 12, 13, 14, 15, 16],
+							'all'	 :[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], 'z':	[5, 6, 11, 12, 13, 14, 15, 16],  'dz':	[11, 12, 13, 14, 15, 16],
 							's(u)'	:	[1],	's(d)'	:	[2],	's'		:	[1,2],
 							'py(u)'	:	[3],'py(d)'	:	[4],'py'	:	[3, 4],	'pz(u)'	:	[5],	'pz(d)'	:	[6],	'pz'	:	[5, 6],	'px(u)'	:	[7],	'px(d)'	:	[8],	'px'	:	[7, 8],	'p'		:	[3, 4, 5, 6, 7, 8],
 							'd_xy(u)'	:	[9], 'd_xy(d)'	:	[10],	'd_xy'		:	[9, 10],	'd_yz(u)'	:	[11],	'd_yz(d)'	:	[12],	'd_yz'	 	:	[11, 12],	'd_z2-r2(u)':	[13],	'd_z2-r2(d)':	[14],	'd_z2-r2'	:	[13, 14],'d_xz(u)'	:	[15],	'd_xz(d)'	:	[16],	'd_xz'		:	[15, 16], 'd_x2-y2(u)':	[17],	'd_x2-y2(d)':	[18], 'd_x2-y2'	:	[17, 18],	'd':	[9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
@@ -245,7 +246,7 @@ class DOSCAR(object):
 
 		try: 	self.orbital_index
 		except: self.orbital_index = {
-							'all'	 :[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], 'z':	[5, 6, 11, 12, 13, 14, 15, 16],
+							'all'	 :[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], 'z':	[5, 6, 11, 12, 13, 14, 15, 16],  'dz':	[11, 12, 13, 14, 15, 16],
 							's(u)'	 :[1],  's(d)'	 :[2],  's'	  :[1,2],
 							'py(u)'	: [3],'py(d)'	:	[4],'py'	:	[3, 4],	'pz(u)'	:	[5],	'pz(d)'	:	[6],	'pz'	:	[5, 6],	'px(u)'	:	[7],	'px(d)'	:	[8],	'px'	:	[7, 8],	'p'		:	[3, 4, 5, 6, 7, 8],
 							'd_xy(u)':[9],  'd_xy(d)':[10],     'd_xy'      :[9, 10], 'd_yz(u)'   :[11],  'd_yz(d)':[12],      'd_yz':[11, 12],  'd_z2-r2(u)':[13],  'd_z2-r2(d)':[14],  'd_z2-r2':[13, 14],  'd_xz(u)':[15],	
@@ -308,7 +309,7 @@ class DOSCAR(object):
 									ax:object=None, save:bool=True, v:bool=True, path:str=None):
 		try: 	self.orbital_index
 		except: self.orbital_index = {
-							'all'	 :[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],  'z':	[5, 6, 11, 12, 13, 14, 15, 16],
+							'all'	 :[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],  'z':	[5, 6, 11, 12, 13, 14, 15, 16],  'dz':	[11, 12, 13, 14, 15, 16],
 							's(u)'	 :[1],  's(d)'	 :[2],  's'	  :[1,2],
 							'py(u)'	:	[3],'py(d)'	:	[4],'py'	:	[3, 4],	'pz(u)'	:	[5],	'pz(d)'	:	[6],	'pz'	:	[5, 6],	'px(u)'	:	[7],	'px(d)'	:	[8],	'px'	:	[7, 8],	'p'		:	[3, 4, 5, 6, 7, 8],
 							'd_xy(u)':[9],  'd_xy(d)':[10],     'd_xy'      :[9, 10], 'd_yz(u)'   :[11],  'd_yz(d)':[12],      'd_yz':[11, 12],  'd_z2-r2(u)':[13],  'd_z2-r2(d)':[14],  'd_z2-r2':[13, 14],  'd_xz(u)':[15],	
@@ -346,7 +347,7 @@ class DOSCAR(object):
 	def get_data(self, ion=None, orbital=None, sum_plot=False, add_fermi=True, spin_invertion=False, save=False):
 		try: 	self.orbital_index
 		except: self.orbital_index = {
-							'all'	 :[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],  'z':	[5, 6, 11, 12, 13, 14, 15, 16],
+							'all'	 :[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],  'z':	[5, 6, 11, 12, 13, 14, 15, 16], 'dz':	[11, 12, 13, 14, 15, 16],
 							's(u)'	 :[1],  's(d)'	 :[2],  's'	  :[1,2],
 							'py(u)'	:	[3],'py(d)'	:	[4],'py'	:	[3, 4],	'pz(u)'	:	[5],	'pz(d)'	:	[6],	'pz'	:	[5, 6],	'px(u)'	:	[7],	'px(d)'	:	[8],	'px'	:	[7, 8],	'p'		:	[3, 4, 5, 6, 7, 8],
 							'd_xy(u)':[9],  'd_xy(d)':[10],     'd_xy'      :[9, 10], 'd_yz(u)'   :[11],  'd_yz(d)':[12],      'd_yz':[11, 12],  'd_z2-r2(u)':[13],  'd_z2-r2(d)':[14],  'd_z2-r2':[13, 14],  'd_xz(u)':[15],	
@@ -406,7 +407,7 @@ class DOSCAR(object):
 	def get_occupancy(self, ion:list=None, orbital:list=None,  add_fermi:bool=True, save:bool=True, v:bool=True, path:str=None):
 		try: 	self.orbital_index
 		except: self.orbital_index = {
-							'all'	 :[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],  'z':	[5, 6, 11, 12, 13, 14, 15, 16],
+							'all'	 :[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],  'z':	[5, 6, 11, 12, 13, 14, 15, 16],  'dz':	[11, 12, 13, 14, 15, 16],
 							's(u)'	 :[1],  's(d)'	 :[2],  's'	  :[1,2],
 							'py(u)'	:	[3],'py(d)'	:	[4],'py'	:	[3, 4],	'pz(u)'	:	[5],	'pz(d)'	:	[6],	'pz'	:	[5, 6],	'px(u)'	:	[7],	'px(d)'	:	[8],	'px'	:	[7, 8],	'p'		:	[3, 4, 5, 6, 7, 8],
 							'd_xy(u)':[9],  'd_xy(d)':[10],     'd_xy'      :[9, 10], 'd_yz(u)'   :[11],  'd_yz(d)':[12],      'd_yz':[11, 12],  'd_z2-r2(u)':[13],  'd_z2-r2(d)':[14],  'd_z2-r2':[13, 14],  'd_xz(u)':[15],	
@@ -539,8 +540,27 @@ c = np.array([
 # dyz gana 0.33 
 # dz2 pierde 0.5 
 # dxz gana 0.30
+# FeTPyP, 
+a   = [-0.771,  -0.785, -0.33, -1.05, -0.33, -0.985] 
+#a   = [-1.06,  -1.03, -0.624 , -1.29, -0.623, -1.24] 
+op  = [0.50, 0.56, 0.35, 0.855, 0.3, 0.830 ]
+ooh = [4.18, 3.95, 3.96, 4.55, 3.97, 4.52]
+oh  = [1.20, 1.02, 0.88, 1.61, 0.9, 1.57 ]
+o   = [1.93, 1.66, 2.56, 2.93, 2.0, 2.84 ]
 
+plt.plot(a, op, 'o')
+#plt.plot(a, o, 'o')
+#plt.plot(a, oh, 'o')
+#plt.plot(a, ooh, 'o')
+#plt.plot(oh, o, 'o')
+#plt.plot(ooh, o, 'o')
+#plt.plot(ooh, oh, 'o')
+plt.show()
 
+# MePC
+# MeTPyPMe
+# MeTPyP + MePC Propiedades periodicas
+# 
 
 def main(argv):
 	# === organize arg === #
@@ -573,7 +593,7 @@ def main(argv):
 		center_band = doscar.get_center_of_band(ion=ion, orbital=orbital, sum_plot=True, add_fermi=True )
 		print(f'>> Centro de banda: {center_band} \n Ion : {ion} \n Orbital : {orbital}')
 
-	if task == 'analisys':
+	if task == 'analysis':
 		figure, ax = plt.subplots(1)
 		doscar.load( file_name=inputfile )
 		center_band = doscar.get_center_of_band(ion=ion, orbital=orbital, sum_plot=True, add_fermi=True )
@@ -589,7 +609,6 @@ def main(argv):
 		doscar.get_occupancy(ion=ion, orbital=orbital, add_fermi=True, path=f'{inputfile}')
 
 		np.savetxt(f'{inputfile}_{orbital}_{ion}_{center_band:.3}eV.dat', np.array([E, E_up, E_down, (E_up+np.abs(E_down))]).T, fmt='%10f')
-
 
 		plt.show()
 

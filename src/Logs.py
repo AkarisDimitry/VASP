@@ -32,8 +32,11 @@ class LogDecorator(object):
                 msj = f'>> {fn.__module__}.{fn.__qualname__}(): >> called with >>{args} - {kwargs}'
                 self.logger.debug(msj)
                 self.append_log_to_file(self.log_debug_file, msj )
+                before = time.time()
                 result = fn(*args, **kwargs)
-                self.logger.debug(result)
+                #self.logger.debug(result)
+                msj = f'>> {fn.__module__}.{fn.__qualname__}(): >> execution time: {time.time()-before} (s)'
+                self.logger.debug(msj)
                 return result
             except Exception as ex:
                 msj = f"Exception raised in >> {fn.__module__}.{fn.__qualname__}(): >> exception: {str(ex)}\n"

@@ -177,13 +177,13 @@ class CHGCAR(object):
 if __name__ == "__main__":
 	# === Charge diference plot === #
 	chg = CHGCAR()
-	chg.load_charge(		file_name='/home/akaris/Documents/code/VASP/v4.6/files/CHGCAR/CoFeTPyPCo-CoFeTPyP[Co]/CHGCAR_Co')
+	chg.load_charge(		file_name='/home/akaris/Documents/code/VASP/v4.6/files/CHGCAR/CoFeTPyPCo-CoFeTPyP[Co]/CHGCAR')
 
 	chg_missCo = CHGCAR()
-	chg_missCo.load_charge(	file_name='/home/akaris/Documents/code/VASP/v4.6/files/CHGCAR/CoFeTPyPCo-CoFeTPyP[Co]/CHGCAR_missCo')
+	chg_missCo.load_charge(	file_name='/home/akaris/Documents/code/VASP/v4.6/files/CHGCAR/CoFeTPyPCo-CoFeTPyP[Co]/CHGCAR_missFe')
 
 	chg_Co = CHGCAR()
-	chg_Co.load_charge(		file_name='/home/akaris/Documents/code/VASP/v4.6/files/CHGCAR/CoFeTPyPCo-CoFeTPyP[Co]/CHGCAR_Co')
+	chg_Co.load_charge(		file_name='/home/akaris/Documents/code/VASP/v4.6/files/CHGCAR/CoFeTPyPCo-CoFeTPyP[Co]/CHGCAR_Fe')
 
 	chg2 = CHGCAR()
 	chg2.charge = chg.charge - chg_missCo.charge - chg_Co.charge

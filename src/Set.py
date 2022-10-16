@@ -169,8 +169,9 @@ class Set(object):
 			# GET >> get query_dict data
 			if not query is None: 
 				query_dict[data_name] = {}
-				if 'E' in query:	query_dict[data_name]['E']   = {system_name : system_obj.OSZICAR.E[-1] for system_name, system_obj in data.system.items() }
-				if 'ORR' in query:	query_dict[data_name]['ORR'] = {query_ORR : data.ORR_analysis.ORR[query_ORR] for query_ORR in query['ORR'] }
+				if 'E'    in query:	query_dict[data_name]['E']    = {system_name : system_obj.OSZICAR.E[-1] for system_name, system_obj in data.system.items() }
+				if 'ORR'  in query:	query_dict[data_name]['ORR']  = {query_ORR : data.ORR_analysis.ORR[query_ORR] for query_ORR in query['ORR'] }
+				if 'PDOS' in query:	query_dict[data_name]['PDOS'] = {system_name : system_obj.DOSCAR.E[-1] for system_name, system_obj in data.system.items() }
 				if v: print(query_dict)
 
 			# STORE >> store query data in self.set
@@ -491,7 +492,8 @@ class Set(object):
 
 		return data
 
-	def get_dataset_PDOS2OP(self, save_path=None, features=None):
+	@Logs.LogDecorator()
+	def get_dataset_PDOS2OP(self, save_path=None, features:dict=None, export:str=None, save:bool=True) -> list: 
 
 		features = {'PDOS': {	'config' : {'start':-5.0, 'end':5.0, 'point':500},
 										'atoms'  : {'name':['Al', 'Bi', 'Ca_sv', 'Cd', 'Co', 'Cr', 'Cu', 'Fe', 'Ir', 'Mg', 'Mn', 'Mo', 'Ni', 'Pb', 'Pd', 'Pt', 'Rh', 'Ru', 'Sc', 'Tc', 'Ti', 'V', 'Zn']},  
@@ -787,12 +789,13 @@ def main(argv):
 													'G1_ORR'  ,	'G2_ORR'  ,	'G3_ORR' ,	'G4_ORR' ,
 													'Eabs_OOH',	'Eabs_O'  ,	'Eabs_OH',
 													'Gabs_OH' ,	'Gabs_OOH',	'Gabs_O'	], 
-									'E'			:['total'],		
+									'E'			:['total'],	
+									'PDOS'		:['z']	
 								} )
 	
 	if task == 'XYN':
 		path = '/'.join(inputfile.split('/')[:-1])
-		path = inputfile.split('/')[-1]
+		file = inputfile.split('/')[-1]
 		dataset.load_data(inputfile)
 		nnx, nny, name = dataset.get_dataset_PDOS2OP()
 		np.savetxt(f'{path}/{file}_X.dat', nnx)
